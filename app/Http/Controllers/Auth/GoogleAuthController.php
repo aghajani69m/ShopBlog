@@ -31,7 +31,6 @@ class GoogleAuthController extends Controller
             }
 
             auth()->loginUsingId($user->id);
-
             return $this->loggedin($request , $user) ?: redirect('/');
         } catch (\Exception $e) {
             //TODO Log Error Message

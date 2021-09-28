@@ -21,6 +21,8 @@ class User extends Authenticatable implements MustVerifyEmail
         'name',
         'email',
         'password',
+        'two_factor_type',
+        'phone_number',
     ];
 
     /**
@@ -41,4 +43,45 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    /**
+     * Send the password reset notification.
+     *
+     * @param  string  $token
+     * @return void
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPasswordNotification($token));
+    }
+
+    /**
+     * Send the email verification notification.
+     *
+     * @return void
+     */
+    public function sendEmailVerificationNotification()
+    {
+        $this->notify(new VerifyEmailNotification);
+    }
+
+    public function activeCode()
+    {
+        return $this->hasMany(ActiveCode::class);
+    }
+
+    public function hasTwoFactor($key): bool
+    {
+        return $this->two_factor_type == $key;
+    }
+
+    public function hasTwoFactorAuthenticatedEnabled(): bool
+    {
+        return $this->two_factor_type !== 'off';
+    }
+
+    public function hasSmsTwoFactorAuthenticationEnabled(): bool
+    {
+        return $this->two_factor_type == 'sms';
+    }
 }
