@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 
 
 use App\Models\ActiveCode;
+use App\Models\User;
 use App\Notifications\ActiveCodeNotification;
 use App\Notifications\LoginToWebsiteNotification;
 use Illuminate\Http\Request;

@@ -25,6 +25,10 @@ class User extends Authenticatable implements MustVerifyEmail
         'password',
         'two_factor_type',
         'phone_number',
+        'is_superadmin',
+        'is_admin',
+        'is_superuser',
+        'is_staff'
     ];
 
     /**
@@ -79,11 +83,34 @@ class User extends Authenticatable implements MustVerifyEmail
 
     public function hasTwoFactorAuthenticatedEnabled(): bool
     {
-        return $this->two_factor_type !== 'off';
+        $status = $this->two_factor_type !== 'off' ;
+        return $status;
     }
 
     public function hasSmsTwoFactorAuthenticationEnabled(): bool
     {
-        return $this->two_factor_type == 'sms';
+        $status = $this->two_factor_type == 'sms';
+        return $status;
+    }
+    public function setPasswordAttribute($value)
+    {
+        $this->attributes['password'] = bcrypt($value);
+    }
+
+    public function isSuperUser()
+    {
+        return $this->is_superuser;
+    }
+    public function isSuperAdmin()
+    {
+        return $this->is_superadmin;
+    }
+    public function isAdmin()
+    {
+        return $this->is_admin;
+    }
+    public function isStaffUser()
+    {
+        return $this->is_staff;
     }
 }
