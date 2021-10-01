@@ -5,10 +5,19 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('can:show-users')->only(['index']);
+        $this->middleware('can:create-user')->only(['create' , 'store']);
+        $this->middleware('can:edit-user')->only(['edit' , 'update']);
+        $this->middleware('can:delete-user')->only(['destroy']);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -22,8 +31,18 @@ class UserController extends Controller
             $users->where('email' , 'LIKE' , "%{$keyword}%")->orWhere('name' , 'LIKE' , "%{$keyword}%" )->orWhere('id' , $keyword);
         }
 
-        if(\request('admin')) {
-            $users->where('is_superuser' , 1)->orWhere('is_staff' , 1)->orWhere('is_admin' , 1)->orWhere('is_superadmin' , 1);
+        if (\request('admin')) {
+            $this->authorize('show-staff-users');
+            $users->where('is_superuser', 1)->orWhere('is_staff', 1)
+                ->orWhere('is_superadmin', 1)->orWhere('is_admin', 1);
+        }
+
+        if (Gate::allows('show-staff-users')) {
+            if (\request('admin')) {
+                $users->where('is_superuser', 1)->orWhere('is_staff', 1);
+            }
+        } else {
+            $users->where('is_superuser', 0)->orWhere('is_staff', 0);
         }
 
         $users = $users->latest()->paginate(20);
@@ -105,7 +124,21 @@ class UserController extends Controller
 
             $data['password'] = $request->password;
         }
-
+        if($request->has('is_admin') && $request->is_admin == 'on') {
+            $data['is_admin'] = true ;
+        }else{
+            $data['is_admin'] = false ;
+        }
+        if($request->has('is_staff') && $request->is_staff == 'on') {
+            $data['is_staff'] = true ;
+        }else{
+            $data['is_staff'] = false ;
+        }
+        if($request->has('is_superuser') && $request->is_superuser == 'on') {
+            $data['is_superuser'] = true ;
+        }else{
+            $data['is_superuser'] = false ;
+        }
         $user->update($data);
 
         if($request->has('verify')) {

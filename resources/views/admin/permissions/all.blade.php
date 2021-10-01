@@ -40,12 +40,16 @@
                                 <td>{{ $permission->label }}</td>
 
                                 <td class="d-flex">
-                                    <form action="{{ route('admin.permissions.destroy' , $permission->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
-                                    </form>
-                                    <a href="{{ route('admin.permissions.edit' , $permission->id) }}" class="btn btn-sm btn-primary">ویرایش</a>
+                                    @can('delete-permission')
+                                        <form action="{{ route('admin.permissions.destroy' ,  $permission->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
+                                        </form>
+                                    @endcan
+                                    @can('edit-permission')
+                                        <a href="{{ route('admin.permissions.edit' ,$permission->id) }}" class="btn btn-sm btn-primary">ویرایش</a>
+                                    @endcan
                                 </td>
                             </tr>
                         @endforeach

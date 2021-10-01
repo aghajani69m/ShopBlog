@@ -34,7 +34,18 @@
                             <label for="inputPassword3" class="col-sm-2 control-label">تکرار پسورد</label>
                             <input type="password" name="password_confirmation" class="form-control" id="inputPassword3" placeholder="پسورد را وارد کنید">
                         </div>
+                        @can('admin')
+                            <div class="form-check">
+                                <input type="checkbox" name="is_admin" class="form-check-input d-flex" id="verify" >
+                                <label class="form-check-label d-flex" for="verify">ادمین</label>
+                                <input type="checkbox" name="is_staff" class="form-check-input d-flex" id="verify" >
+                                <label class="form-check-label d-flex" for="verify">کارمند</label>
+                                <input type="checkbox" name="is_superuser" class="form-check-input d-flex" id="verify">
+                                <label class="form-check-label d-flex" for="verify">کاربر ویژه</label>
+                            </div>
+                        @endcan
                         <div class="form-check">
+                            <hr>
                             <input type="checkbox" name="verify" class="form-check-input" id="verify">
                             <label class="form-check-label" for="verify">اکانت فعال باشد</label>
                         </div>

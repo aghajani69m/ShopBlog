@@ -10,7 +10,7 @@ Route::get('/', function () {
     return view('admin.index');
 });
 Route::resource('users',UserController::class);
-Route::get('/users/{user}/permissions',[PerController::class,'create'])->name('users.permissions');
-Route::post('/users/{user}/permissions',[PerController::class,'store'])->name('users.permissions.store');
+Route::get('/users/{user}/permissions',[PerController::class,'create'])->name('users.permissions')->middleware('can:staff-user-permissions');
+Route::post('/users/{user}/permissions',[PerController::class,'store'])->name('users.permissions.store')->middleware('can:staff-user-permissions');
 Route::resource('permissions', PermissionController::class);
 Route::resource('roles', RoleController::class);

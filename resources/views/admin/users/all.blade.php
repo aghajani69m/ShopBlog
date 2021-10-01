@@ -21,7 +21,12 @@
                             </div>
                         </form>
                         <div class="btn-group-sm mr-1">
-                            <a href="{{ request()->fullUrlWithQuery(['admin' => 1])  }}" class="btn btn-warning">کاربران مدیر</a>
+                            @can('create-user')
+                                <a href="{{ route('admin.users.create') }}" class="btn btn-info">ایجاد کاربر جدید</a>
+                            @endcan
+                            @can('show-staff-users')
+                                <a href="{{ request()->fullUrlWithQuery(['admin' => 1])  }}" class="btn btn-warning">کاربران مدیر</a>
+                            @endcan
                         </div>
                     </div>
                 </div>
@@ -48,14 +53,20 @@
                                     <td><span class="badge badge-danger">غیرفعال</span></td>
                                 @endif
                                 <td class="d-flex">
+                                    @can('delete-user')
                                     <form action="{{ route('admin.users.destroy' , ['user' => $user->id]) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
                                     </form>
+                                    @endcan
+                                    @can('edit-user')
                                     <a href="{{ route('admin.users.edit' , ['user' => $user->id]) }}" class="btn btn-sm btn-primary ml-1">ویرایش</a>
+                                    @endcan
                                     @if($user->isStaffUser())
+                                        @can('staff-user-permissions')
                                         <a href="{{ route('admin.users.permissions' , ['user' => $user->id]) }}" class="btn btn-sm btn-warning">دسترسی ها</a>
+                                        @endcan
                                     @endif
                                 </td>
                             </tr>

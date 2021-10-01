@@ -30,6 +30,7 @@
                             <p>پنل مدیریت</p>
                         </a>
                     </li>
+                    @canany(['show-users','create-user'])
                     <li class="nav-item has-treeview {{ isActive(['admin.users.index' , 'admin.users.create' , 'admin.users.edit'] , 'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(['admin.users.index' , 'admin.users.create' , 'admin.users.edit'] ) }}">
                             <i class="nav-icon fa fa-users"></i>
@@ -39,20 +40,26 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @can('show-users')
                             <li class="nav-item">
                                 <a href="{{ route('admin.users.index') }}" class="nav-link {{ isActive('admin.users.index') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>لیست کاربران</p>
                                 </a>
                             </li>
+                            @endcan
+                            @can('create-user')
                             <li class="nav-item">
                                 <a href="{{ route('admin.users.create') }}" class="nav-link {{ isActive('admin.users.create') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>ایجاد کاربر</p>
                                 </a>
                             </li>
+                            @endcan
                         </ul>
                     </li>
+                    @endcanany
+                    @canany(['show-permossions','create-permission' , 'show-roles','create-role'])
                     <li class="nav-item has-treeview {{ isActive(['admin.permissions.index' , 'admin.permissions.create' , 'admin.permissions.edit','admin.roles.index' , 'admin.roles.create' , 'admin.roles.edit'] , 'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(['admin.permissions.index' , 'admin.permissions.create' , 'admin.permissions.edit','admin.roles.index' , 'admin.roles.create' , 'admin.roles.edit'] ) }}">
                             <i class="nav-icon fa fa-users"></i>
@@ -62,34 +69,41 @@
                             </p>
                         </a>
                         <ul class="nav nav-treeview">
+                            @can('create-permission')
                             <li class="nav-item">
                                 <a href="{{ route('admin.permissions.create') }}" class="nav-link {{ isActive('admin.permissions.create') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>ایجاد دسترسی</p>
                                 </a>
                             </li>
-
+                            @endcan
+                            @can('show-permissions')
                             <li class="nav-item">
                                 <a href="{{ route('admin.permissions.index') }}" class="nav-link {{ isActive('admin.permissions.index') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>همه دسترسی ها</p>
                                 </a>
                             </li>
+                            @endcan
+                                @can('create-role')
                             <li class="nav-item">
                                 <a href="{{ route('admin.roles.create') }}" class="nav-link {{ isActive('admin.roles.create') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>ایجاد مقام</p>
                                 </a>
                             </li>
+                                @endcan
+                            @can('show-roles')
                             <li class="nav-item">
                                 <a href="{{ route('admin.roles.index') }}" class="nav-link {{ isActive('admin.roles.index') }}">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>همه مقام ها</p>
                                 </a>
                             </li>
+                                @endcan
                         </ul>
                     </li>
-
+                    @endcanany
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

@@ -35,7 +35,20 @@
                             <label for="inputPassword3" class="col-sm-2 control-label">تکرار پسورد</label>
                             <input type="password" name="password_confirmation" class="form-control" id="inputPassword3" placeholder="پسورد را وارد کنید">
                         </div>
+                        @can('admin')
+                        <div class="form-check">
+                            <input type="checkbox" name="is_admin" class="form-check-input d-flex" id="verify" {{ $user->isAdmin() ? 'checked' : ''}}>
+                            <label class="form-check-label d-flex" for="verify">ادمین</label>
+                            <input type="checkbox" name="is_staff" class="form-check-input d-flex" id="verify" {{ $user->isStaffUser() ? 'checked' : ''}}>
+                            <label class="form-check-label d-flex" for="verify">کارمند</label>
+                            <input type="checkbox" name="is_superuser" class="form-check-input d-flex" id="verify" {{ $user->isSuperUser() ? 'checked' : ''}}>
+                            <label class="form-check-label d-flex" for="verify">کاربر ویژه</label>
+                        </div>
+                        @endcan
+
+
                         @if(! $user->hasVerifiedEmail())
+                            <hr>
                             <div class="form-check">
                                 <input type="checkbox" name="verify" class="form-check-input" id="verify">
                                 <label class="form-check-label" for="verify">اکانت فعال باشد</label>
