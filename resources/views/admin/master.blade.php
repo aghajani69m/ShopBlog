@@ -86,7 +86,10 @@
 <script src="/plugins/slimScroll/jquery.slimscroll.min.js"></script>
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.js"></script>
+
 <!-- AdminLTE App -->
+<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+
 <script src="/dist/js/adminlte.js"></script>
 <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
 <script src="/dist/js/pages/dashboard.js"></script>
@@ -96,6 +99,8 @@
 <script src="{{ asset('js/app.js') }}"></script>
 
 <script src="{{ asset('js/admin.js') }}"></script>
+
+@yield('script')
 
 @include('sweet::alert')
 
