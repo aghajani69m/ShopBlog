@@ -10,47 +10,45 @@
     <link rel="stylesheet" href="/plugins/font-awesome/css/font-awesome.min.css">
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <!-- Theme style -->
-    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
     <!-- iCheck -->
     <link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="/plugins/morris/morris.css">
+
+    <link rel="stylesheet" href="/plugins/select2/select2.css">
     <!-- jvectormap -->
     <link rel="stylesheet" href="/plugins/jvectormap/jquery-jvectormap-1.2.2.css">
     <!-- Date Picker -->
     <link rel="stylesheet" href="/plugins/datepicker/datepicker3.css">
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="/plugins/daterangepicker/daterangepicker-bs3.css">
+    <link rel="stylesheet" href="plugins/daterangepicker/daterangepicker-bs3.css">
     <!-- bootstrap wysihtml5 - text editor -->
     <link rel="stylesheet" href="/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
-    <!-- bootstrap rtl -->
-    <link rel="stylesheet" href="/dist/css/bootstrap-rtl.min.css">
-    <!-- template rtl version -->
-    <link rel="stylesheet" href="/dist/css/custom-style.css">
+
+    <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
 
 </head>
 <body class="hold-transition sidebar-mini">
 <div class="wrapper">
 
+    <!-- Navbar -->
 @include('admin.layouts.navbar')
+<!-- /.navbar -->
 
+    <!-- Main Sidebar Container -->
 @include('admin.layouts.sidebar')
-    <!-- Content Wrapper. Contains page content -->
+
+
+<!-- Content Wrapper. Contains page content -->
     <div class="content-wrapper">
-    @yield('content')
+        @yield('content')
     </div>
     <!-- /.content-wrapper -->
-    <footer class="main-footer">
-{{--        <strong>CopyLeft &copy; 2018 <a href="http://github.com/hesammousavi/">حسام موسوی</a>.</strong>--}}
-    </footer>
 
     <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
+
     <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
@@ -87,22 +85,11 @@
 <!-- FastClick -->
 <script src="/plugins/fastclick/fastclick.js"></script>
 
+<script src="/plugins/select2/select2.full.js"></script>
+
 <!-- AdminLTE App -->
-<script src="//code.jquery.com/jquery-1.12.4.js"></script>
-
-<script src="/dist/js/adminlte.js"></script>
-<!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-<script src="/dist/js/pages/dashboard.js"></script>
-<!-- AdminLTE for demo purposes -->
-<script src="/dist/js/demo.js"></script>
-
-<script src="{{ asset('js/app.js') }}"></script>
-
 <script src="{{ asset('js/admin.js') }}"></script>
-
 @yield('script')
-
 @include('sweet::alert')
-
 </body>
 </html>

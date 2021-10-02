@@ -16,6 +16,7 @@
     <!-- Styles -->
     <link href="https://cdn.rawgit.com/rastikerdar/vazir-font/v21.2.1/dist/font-face.css" rel="stylesheet" type="text/css" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
 </head>
 <body>
 <div id="app">
@@ -35,7 +36,7 @@
                 </ul>
 
                 <!-- Right Side Of Navbar -->
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav mr-auto">
                     <!-- Authentication Links -->
                     @guest
                         <li class="nav-item">
@@ -76,10 +77,7 @@
     </main>
 </div>
 <!-- Scripts -->
-
 <script src="{{ asset('js/app.js') }}"></script>
-<script src="{{ asset('js/admin.js') }}"></script>
-
 @yield('script')
 @include('sweet::alert')
 </body>

@@ -2,6 +2,8 @@
 
 use App\Http\Controllers\Auth\AuthTokenController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Profile\IndexController;
 use App\Http\Controllers\Profile\TokenAuthController;
 use App\Http\Controllers\Profile\TwoFactorAuthController;
@@ -21,10 +23,6 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/secret' , function() {
-    return 'secret';
-})->middleware(['auth' , 'password.confirm']);
-
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
@@ -43,3 +41,9 @@ Route::prefix('profile')->namespace('Profile')->middleware('auth')->group(functi
     Route::get('twofacto/phone' , [TokenAuthController::class,'getPhoneVerify'])->name('profile.2fa.phone');
     Route::post('twofacto/phone' , [TokenAuthController::class,'postPhoneVerify']);
 });
+
+
+Route::get('products' ,[ProductController::class,'index']);
+Route::get('products/{product}' ,[ProductController::class,'single']);
+
+Route::post('comments' ,[HomeController::class,'comment'])->name('send.comment');

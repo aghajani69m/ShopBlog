@@ -1,4 +1,5 @@
 @extends('admin.master')
+
 @section('content')
     <!-- Content Header (Page header) -->
     <div class="content-header">
@@ -9,10 +10,7 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
-
                         {{ $breadcrumb }}
-{{--                        <li class="breadcrumb-item"><a href="#">خانه</a></li>--}}
-{{--                        <li class="breadcrumb-item active">داشبورد ورژن 2</li>--}}
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -23,9 +21,12 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-           {{ $slot }}
+            {{ $slot }}
         </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->
 @endsection
 
+@section('script')
+    {{ $script ?? '' }}
+@endsection
