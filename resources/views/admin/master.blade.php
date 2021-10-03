@@ -14,6 +14,8 @@
     <link rel="stylesheet" href="/plugins/iCheck/flat/blue.css">
     <!-- Morris chart -->
     <link rel="stylesheet" href="/plugins/morris/morris.css">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
 
     <link rel="stylesheet" href="/plugins/select2/select2.css">
     <!-- jvectormap -->
