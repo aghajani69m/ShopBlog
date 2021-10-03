@@ -22,6 +22,13 @@ class CommentController extends Controller
      */
     public function index()
     {
+        $comments = Comment::query();
+        if($keyword = request('search')) {
+            $comments->where('comment' , 'LIKE' , "%{$keyword}%")->orWhereHas('user' , function($query) use ($keyword) {
+                $query->where('name' , 'LIKE' , "%{$keyword}%");
+            });
+        }
+
         $comments = Comment::whereApproved(1)->latest()->paginate(20);
         return view('admin.comments.all' , compact('comments'));
     }

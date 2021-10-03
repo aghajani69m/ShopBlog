@@ -24,7 +24,7 @@
                         </div>
                         @if(request('parent'))
                             @php
-                                $parent = \App\Models\Category::find(request('parent'))
+                                $parent = \App\Category::find(request('parent'))
                             @endphp
                             <div class="form-group">
                                 <label for="inputEmail3" class="col-sm-2 control-label">نام دسته</label>

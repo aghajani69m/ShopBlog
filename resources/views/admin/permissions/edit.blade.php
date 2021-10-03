@@ -14,17 +14,18 @@
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
-                <form class="form-horizontal" action="{{ route('admin.permissions.update', $permission->id) }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.permissions.update' , $permission->id) }}" method="POST">
                     @csrf
                     @method('PATCH')
+
                     <div class="card-body">
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">نام دسترسی</label>
-                            <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="نام دسترسی را وارد کنید" value="{{ old('name' , $permission->name) }} ">
+                            <label for="inputEmail3" class="col-sm-2 control-label">عنوان دسترسی</label>
+                            <input type="text" name="name" class="form-control" id="inputEmail3" placeholder="عنوان دسترسی را وارد کنید" value="{{ old('name' , $permission->name) }}">
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">توضیحات مربوط به دسترسی</label>
-                            <input type="text" name="label" class="form-control" id="inputEmail3" placeholder="توضیحات را وارد کنید" value="{{  old('label',$permission->label) }}">
+                            <label for="inputEmail3" class="col-sm-2 control-label">توضیح دسترسی</label>
+                            <input type="text" name="label" class="form-control" id="inputEmail3" placeholder="توضیح دسترسی را وارد کنید" value="{{ old('label' , $permission->label) }}">
                         </div>
                     </div>
                     <!-- /.card-body -->

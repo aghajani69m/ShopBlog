@@ -39,10 +39,12 @@ class UserController extends Controller
 
         if (Gate::allows('show-staff-users')) {
             if (\request('admin')) {
-                $users->where('is_superuser', 1)->orWhere('is_staff', 1);
+                $users->where('is_superuser', 1)->orWhere('is_staff', 1)
+                    ->orWhere('is_superadmin', 1)->orWhere('is_admin', 1);
             }
         } else {
-            $users->where('is_superuser', 0)->orWhere('is_staff', 0);
+            $users->where('is_superuser', 0)->orWhere('is_staff', 0)
+                ->orWhere('is_superadmin', 0)->orWhere('is_admin', 0);
         }
 
         $users = $users->latest()->paginate(20);
@@ -98,16 +100,7 @@ class UserController extends Controller
         return redirect(route('admin.users.index'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
+
 
     /**
      * Show the form for editing the specified resource.

@@ -9,6 +9,12 @@ use Illuminate\Http\Request;
 
 class PermissionController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:create-permission')->only(['create' , 'store']);
+
+    }
+
     public function create(User $user)
     {
         return view('admin.users.permissions' , compact('user'));

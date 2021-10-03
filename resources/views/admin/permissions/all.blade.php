@@ -1,8 +1,9 @@
 @component('admin.layouts.content' , ['title' => 'دسترسی ها'])
     @slot('breadcrumb')
         <li class="breadcrumb-item"><a href="/admin">پنل مدیریت</a></li>
-        <li class="breadcrumb-item active">لیست دسترسی ها</li>
+        <li class="breadcrumb-item active">دسترسی ها</li>
     @endslot
+
 
     <div class="row">
         <div class="col-12">
@@ -20,39 +21,41 @@
                                 </div>
                             </div>
                         </form>
+                        <div class="btn-group-sm mr-1">
+                            @can('create-permission')
+                                <a href="{{ route('admin.permissions.create') }}" class="btn btn-info">ایجاد دسترسی جدید</a>
+                            @endcan
+                        </div>
                     </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body table-responsive p-0">
                     <table class="table table-hover">
                         <tbody>
-                        <tr>
-                            <th>آیدی دسترسی</th>
-                            <th>نام دسترسی</th>
-                            <th>توضیحات</th>
-                            <th>اقدامات</th>
-                        </tr>
-
-                        @foreach($permissions as $permission)
                             <tr>
-                                <td>{{ $permission->id }}</td>
-                                <td>{{ $permission->name }}</td>
-                                <td>{{ $permission->label }}</td>
-
-                                <td class="d-flex">
-                                    @can('delete-permission')
-                                        <form action="{{ route('admin.permissions.destroy' ,  $permission->id) }}" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
-                                        </form>
-                                    @endcan
-                                    @can('edit-permission')
-                                        <a href="{{ route('admin.permissions.edit' ,$permission->id) }}" class="btn btn-sm btn-primary">ویرایش</a>
-                                    @endcan
-                                </td>
+                                <th>نام دسترسی</th>
+                                <th>توضیح دسترسی</th>
+                                <th>اقدامات</th>
                             </tr>
-                        @endforeach
+
+                            @foreach($permissions as $permission)
+                                <tr>
+                                    <td>{{ $permission->name }}</td>
+                                    <td>{{ $permission->label }}</td>
+                                    <td class="d-flex">
+                                        @can('delete-permission')
+                                            <form action="{{ route('admin.permissions.destroy' ,  $permission->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
+                                            </form>
+                                        @endcan
+                                        @can('edit-permission')
+                                            <a href="{{ route('admin.permissions.edit' ,$permission->id) }}" class="btn btn-sm btn-primary">ویرایش</a>
+                                        @endcan
+                                    </td>
+                                </tr>
+                            @endforeach
 
 
                         </tbody>
@@ -60,8 +63,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    {{ $permissions->appends([ 'search' => request('search') ])->render() }}
-
+                    {{ $permissions->render() }}
                 </div>
             </div>
             <!-- /.card -->

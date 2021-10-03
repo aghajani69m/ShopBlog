@@ -18,7 +18,7 @@ Route::get('/users/{user}/permissions',[PerController::class,'create'])->name('u
 Route::post('/users/{user}/permissions',[PerController::class,'store'])->name('users.permissions.store')->middleware('can:staff-user-permissions');
 Route::resource('permissions', PermissionController::class)->except('show');
 Route::resource('roles', RoleController::class)->except('show');
-Route::post('attribute/values' , [AttributeController::class,'getValues']);
+Route::post('attribute/values' , [AttributeController::class,'getValues'])->name('attribute.values');
 
 Route::resource('products', ProductController::class)->except('show');
 

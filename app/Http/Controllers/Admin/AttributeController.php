@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class AttributeController extends Controller
 {
 
+
     public function getValues(Request $request)
     {
         $data = $request->validate([

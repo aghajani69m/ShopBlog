@@ -4,6 +4,7 @@
         <li class="breadcrumb-item active">لیست محصولات</li>
     @endslot
 
+
     <div class="row">
         <div class="col-12">
             <div class="card">

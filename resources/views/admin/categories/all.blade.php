@@ -4,6 +4,7 @@
         <li class="breadcrumb-item active">لیست دسته بندی ها</li>
     @endslot
 
+
     @slot('head')
         <style>
             li.list-group-item > ul.list-group {

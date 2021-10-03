@@ -77,7 +77,7 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $product->attributes[0]->pivot->value;
+//        $product->attributes()->pivot->value;
         return view('admin.products.edit' , compact('product'));
     }
 
