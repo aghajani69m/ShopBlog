@@ -4,6 +4,19 @@
         <li class="breadcrumb-item"><a href="{{ route('admin.users.index') }}">لیست کاربران</a></li>
         <li class="breadcrumb-item active">ثبت دسترسی</li>
     @endslot
+    @slot('script')
+        <script>
+            $('#roles').select2({
+
+                'placeholder' : 'مقام مورد نظر را انتخاب کنید'
+            })
+            $('#permissions').select2({
+
+                'placeholder' : 'دسترسی های مورد نظر را انتخاب کنید'
+
+            })
+        </script>
+    @endslot
 
     <div class="row">
         <div class="col-lg-12">
@@ -17,7 +30,7 @@
                     </div>
                     <div class="form-group">
                         <label for="roles" class="col-sm-2 control-label">مقام ها</label>
-                        <select class="form-control" name="roles[]" id="roles" multiple>
+                        <select class="form-control" name="roles" id="roles" >
                             @foreach(\App\Models\Role::all() as $role)
                                 <option value="{{$role->id}}"  {{ in_array($role->id , $user->roles->pluck('id')->toArray()) ? 'selected' : '' }}>{{$role->name}} - {{$role->label}}</option>
                             @endforeach

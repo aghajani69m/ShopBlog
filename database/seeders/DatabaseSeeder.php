@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Permission;
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\User;
 use Dotenv\Util\Str;
 use Faker\Factory;
@@ -43,11 +44,18 @@ class DatabaseSeeder extends Seeder
         Permission::factory()->create(['name' => 'show-comments' , 'label' => 'مشاهده نظرات']);
         Permission::factory()->create(['name' => 'edit-comment' , 'label' => 'ویرایش نظر']);
         Permission::factory()->create(['name' => 'delete-comment' , 'label' => 'حذف نظر']);
+        Permission::factory()->create(['name' => 'show-categories' , 'label' => 'مشاهده دسته بندی ها']);
+        Permission::factory()->create(['name' => 'create-category' , 'label' => 'ایجاد دسته بندی']);
+        Permission::factory()->create(['name' => 'edit-category' , 'label' => 'ویرایش دسته بندی']);
+        Permission::factory()->create(['name' => 'delete-category' , 'label' => 'حذف دسته بندی']);
         Permission::factory()->create(['name' => 'show-staff-users' , 'label' => 'مشاهده مدیران']);
         Permission::factory()->create(['name' => 'staff-user-permissions' , 'label' => 'مدیریت دسترسی مدیران']);
 
         Product::factory(500)->create();
 
+        Role::factory()->create(['name' => 'admin' , 'label' => 'ادمین']);
+        Role::factory()->create(['name' => 'staff' , 'label' => 'کارمند']);
+        Role::factory()->create(['name' => 'superuser' , 'label' => 'کاربر ویژه']);
 
     }
 }

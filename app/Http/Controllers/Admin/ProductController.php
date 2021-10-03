@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -54,9 +55,11 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required',
             'inventory' => 'required',
+            'categories' => 'required'
         ]);
 
-        auth()->user()->products()->create($validData);
+        $product = auth()->user()->products()->create($validData);
+        $product->categories()->sync($validData['categories']);
 
         alert()->success('محصول مورد نظر با موفقیت ثبت شد' , 'با تشکر');
         return redirect(route('admin.products.index'));
@@ -87,9 +90,11 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required',
             'inventory' => 'required',
+            'categories' => 'required'
         ]);
 
         $product->update($validData);
+        $product->categories()->sync($validData['categories']);
 
         alert()->success('محصول مورد نظر با موفقیت ویرایش شد' , 'با تشکر');
         return redirect(route('admin.products.index'));

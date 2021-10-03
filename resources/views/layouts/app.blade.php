@@ -71,7 +71,7 @@
             </div>
         </div>
     </nav>
-
+{{--    @include('layouts.list-categories' , ['categories' => \App\Models\Category::where('parent' , 0)->get()])--}}
     <main class="py-4">
         @yield('content')
     </main>

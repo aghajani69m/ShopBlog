@@ -72,6 +72,23 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
+        if($request->has('is_admin') && $request->is_admin == 'on') {
+            $data['is_admin'] = true ;
+
+        }else{
+            $data['is_admin'] = false ;
+        }
+        if($request->has('is_staff') && $request->is_staff == 'on') {
+            $data['is_staff'] = true ;
+        }else{
+            $data['is_staff'] = false ;
+        }
+        if($request->has('is_superuser') && $request->is_superuser == 'on') {
+            $data['is_superuser'] = true ;
+        }else{
+            $data['is_superuser'] = false ;
+        }
+
         $user = User::create($data);
 
         if($request->has('verify')) {
