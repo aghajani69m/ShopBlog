@@ -5,20 +5,20 @@ namespace App\Helpers\Cart;
 
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
 
 class CartService
 {
+
     protected $cart;
+
+    protected $name = 'default';
 
     public function __construct()
     {
-        $this->cart = session()->get('cart') ?? collect([]);
-    }
-
-    public function getCart()
-    {
-        return $this->cart;
+//        $this->cart = session()->get($this->name) ?? collect([]);
+        $this->cart = collect(json_decode(request()->cookie($this->name) , true)) ?? collect([]);
     }
 
 
@@ -31,7 +31,7 @@ class CartService
     {
         if(! is_null($obj) && $obj instanceof Model) {
             $value = array_merge($value , [
-               'id' => Str::random(10),
+                'id' => Str::random(10),
                 'subject_id' => $obj->id,
                 'subject_type' => get_class($obj)
             ]);
@@ -42,7 +42,9 @@ class CartService
         }
 
         $this->cart->put($value['id'] , $value);
-        session()->put('cart' , $this->cart);
+//        session()->put($this->name , $this->cart);
+        $this->storeCookie();
+
 
         return $this;
     }
@@ -53,7 +55,7 @@ class CartService
 
         if(is_numeric($options)) {
             $item = $item->merge([
-               'quantity' => $item['quantity'] + $options
+                'quantity' => $item['quantity'] + $options
             ]);
         }
 
@@ -89,8 +91,8 @@ class CartService
     public function get($key , $withRelationShip = true)
     {
         $item = $key instanceof Model
-                    ? $this->cart->where('subject_id' , $key->id)->where('subject_type' , get_class($key))->first()
-                    : $this->cart->firstWhere('id' , $key);
+            ? $this->cart->where('subject_id' , $key->id)->where('subject_type' , get_class($key))->first()
+            : $this->cart->firstWhere('id' , $key);
 
         return $withRelationShip ? $this->withRelationshipIfExist($item) : $item;
     }
@@ -106,7 +108,8 @@ class CartService
                 return $key != $item['id'];
             });
 
-            session()->put('cart' , $this->cart);
+//            session()->put($this->name , $this->cart);
+            $this->storeCookie();
 
             return true;
         }
@@ -122,6 +125,14 @@ class CartService
         });
 
         return $cart;
+    }
+
+    public function flush()
+    {
+        $this->cart = collect([]);
+        $this->storeCookie();
+
+        return $this;
     }
 
     protected function withRelationshipIfExist($item)
@@ -141,4 +152,17 @@ class CartService
 
         return $item;
     }
+
+    public function instance(string $name)
+    {
+        $this->cart = collect(json_decode(request()->cookie($name) , true)) ?? collect([]);
+        $this->name = $name;
+        return $this;
+    }
+
+    protected function storeCookie(): void
+    {
+        Cookie::queue($this->name, $this->cart->toJson(), 60 * 24 * 7);
+    }
+
 }

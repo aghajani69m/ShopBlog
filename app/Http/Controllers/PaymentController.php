@@ -9,8 +9,8 @@ class PaymentController extends Controller
 {
     public function payment()
     {
-        $cart = Cart::getCart();
-        $cartItems = Cart::all();
+        $cart = Cart::instance('cart-roocket');
+        $cartItems = $cart->all();
         if($cartItems->count()) {
             $price = $cartItems->sum(function($cart) {
                 return $cart['product']->price * $cart['quantity'];
@@ -27,10 +27,39 @@ class PaymentController extends Controller
 
             $order->products()->attach($orderItems);
 
-            return 'ok';
+            $token = config('services.payping.token');
+            $res_number = \Str::random();
+            $args = [
+                "amount" => 1000 ,
+                "payerName" => auth()->user()->name,
+                "returnUrl" => route('payment.callback'),
+                "clientRefId" => $res_number
+            ];
+
+//            $payment = new \PayPing\Payment($token);
+//
+//            try {
+//                $payment->pay($args);
+//            } catch (\Exception $e) {
+//                throw $e;
+//            }
+//            //echo $payment->getPayUrl();
+//            $order->payments()->create([
+//                'resnumber' => $res_number,
+//                'price' => $price
+//            ]);
+
+            $cart->flush();
+            return redirect('/cart');
+//            return redirect($payment->getPayUrl());
         }
 
-        // alert()->error(); TODO
+        // alert()->error();
         return back();
+    }
+
+    public function callback()
+    {
+
     }
 }

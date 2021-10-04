@@ -7,7 +7,7 @@ namespace App\Helpers\Cart;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Facade;
-use phpDocumentor\Reflection\Types\Static_;
+
 
 /**
  * Class Cart
@@ -16,7 +16,7 @@ use phpDocumentor\Reflection\Types\Static_;
  * @method static Collection all();
  * @method static array get($id);
  * @method static Cart put(array $value , Model $obj = null)
- * @method Static Collection getCart()
+ * @method static Cart instance(string $name)
  */
 class Cart extends Facade
 {
@@ -25,3 +25,4 @@ class Cart extends Facade
         return 'cart';
     }
 }
+

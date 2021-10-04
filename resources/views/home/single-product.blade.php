@@ -64,14 +64,14 @@
                     <form action="{{ route('send.comment') }}" method="post" id="sendCommentForm">
                         @csrf
                         <div class="modal-body">
-                                <input type="hidden" name="commentable_id" value="{{ $product->id }}" >
-                                <input type="hidden" name="commentable_type" value="{{ get_class($product) }}">
-                                <input type="hidden" name="parent_id" value="0">
+                            <input type="hidden" name="commentable_id" value="{{ $product->id }}" >
+                            <input type="hidden" name="commentable_type" value="{{ get_class($product) }}">
+                            <input type="hidden" name="parent_id" value="0">
 
-                                <div class="form-group">
-                                    <label for="message-text" class="col-form-label">پیام دیدگاه:</label>
-                                    <textarea name="comment" class="form-control" id="message-text"></textarea>
-                                </div>
+                            <div class="form-group">
+                                <label for="message-text" class="col-form-label">پیام دیدگاه:</label>
+                                <textarea name="comment" class="form-control" id="message-text"></textarea>
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
@@ -89,12 +89,12 @@
                 <div class="card">
                     <div class="card-header d-flex justify-content-between">
                         {{ $product->title }}
-{{--                        @if(Cart::count($product) < $product->inventory)--}}
-                            <form action="{{ route('cart.add' , $product->id) }}" method="POST" id="add-to-cart">
-                                @csrf
-                            </form>
-                            <span onclick="document.getElementById('add-to-cart').submit()" class="btn btn-sm btn-danger">اضافه کردن به سبد خرید</span>
-{{--                        @endif--}}
+                        {{--                        @if(Cart::count($product) < $product->inventory)--}}
+                        <form action="{{ route('cart.add' , $product->id) }}" method="POST" id="add-to-cart">
+                            @csrf
+                        </form>
+                        <span onclick="document.getElementById('add-to-cart').submit()" class="btn btn-sm btn-danger">اضافه کردن به سبد خرید</span>
+                        {{--                        @endif--}}
                     </div>
 
                     <div class="card-body">
