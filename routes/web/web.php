@@ -4,6 +4,7 @@ use App\Http\Controllers\Auth\AuthTokenController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Profile\IndexController;
 use App\Http\Controllers\Profile\TokenAuthController;
@@ -34,20 +35,23 @@ Route::get('/auth/google/callback' ,[GoogleAuthController::class,'callback']);
 Route::get('/auth/token' ,[AuthTokenController::class,'getToken'])->name('2fa.token');
 Route::post('/auth/token' ,[AuthTokenController::class,'postToken']);
 
-Route::prefix('profile')->namespace('Profile')->middleware('auth')->group(function() {
-    Route::get('/' , [IndexController::class,'index'])->name('profile');
-    Route::get('twofactor' , [TwoFactorAuthController::class,'manageTwoFactor'])->name('profile.2fa.manage');
-    Route::post('twofactor' , [TwoFactorAuthController::class,'postManageTwoFactor']);
+Route::middleware('auth')->group(function() {
+    Route::prefix('profile')->namespace('Profile')->group(function () {
+        Route::get('/', [IndexController::class, 'index'])->name('profile');
+        Route::get('twofactor', [TwoFactorAuthController::class, 'manageTwoFactor'])->name('profile.2fa.manage');
+        Route::post('twofactor', [TwoFactorAuthController::class, 'postManageTwoFactor']);
 
-    Route::get('twofacto/phone' , [TokenAuthController::class,'getPhoneVerify'])->name('profile.2fa.phone');
-    Route::post('twofacto/phone' , [TokenAuthController::class,'postPhoneVerify']);
+        Route::get('twofacto/phone', [TokenAuthController::class, 'getPhoneVerify'])->name('profile.2fa.phone');
+        Route::post('twofacto/phone', [TokenAuthController::class, 'postPhoneVerify']);
+    });
+    Route::post('comments' ,[HomeController::class,'comment'])->name('send.comment');
+    Route::post('payment' ,[PaymentController::class,'payment'])->name('cart.payment');
+
 });
-
 
 Route::get('products' ,[ProductController::class,'index']);
 Route::get('products/{product}' ,[ProductController::class,'single']);
 
-Route::post('comments' ,[HomeController::class,'comment'])->name('send.comment');
 
 
 Route::post('cart/add/{product}' , [CartController::class,'addToCart'])->name('cart.add');

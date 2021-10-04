@@ -28,4 +28,8 @@ class Product extends Model
     {
         return $this->belongsToMany(Attribute::class)->using(ProductAttributeValues::class)->withPivot(['value_id']);
     }
+    public function orders()
+    {
+        return $this->belongsToMany(Order::class);
+    }
 }

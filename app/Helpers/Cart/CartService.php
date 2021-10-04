@@ -16,6 +16,11 @@ class CartService
         $this->cart = session()->get('cart') ?? collect([]);
     }
 
+    public function getCart()
+    {
+        return $this->cart;
+    }
+
 
     /**
      * @param array $value
