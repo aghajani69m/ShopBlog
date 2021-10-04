@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Auth\AuthTokenController;
 use App\Http\Controllers\Auth\GoogleAuthController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\Profile\IndexController;
@@ -47,3 +48,9 @@ Route::get('products' ,[ProductController::class,'index']);
 Route::get('products/{product}' ,[ProductController::class,'single']);
 
 Route::post('comments' ,[HomeController::class,'comment'])->name('send.comment');
+
+
+Route::post('cart/add/{product}' , [CartController::class,'addToCart'])->name('cart.add');
+Route::patch('cart/quantity/change' , [CartController::class,'quantityChange'])->name('quantity.change');
+Route::delete('cart/delete/{cart}' , [CartController::class,'deleteFromCart'])->name('cart.destroy');
+Route::get('cart' , [CartController::class,'cart']);
