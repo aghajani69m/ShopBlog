@@ -52,7 +52,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach(\App\Helpers\Cart\Cart::instance('cart-roocket')->all() as $cart)
+                        @foreach(\App\Helpers\Cart\Cart::instance('cart-payment')->all() as $cart)
                             @if(isset($cart['product']))
                                 @php
                                     $product = $cart['product'];
@@ -74,7 +74,7 @@
                                     </td>
                                     <td class="text-right font-weight-semibold align-middle p-4">{{ $product->price }} تومان</td>
                                     <td class="align-middle p-4">
-                                        <select onchange="changeQuantity(event, '{{ $cart['id'] }}' , 'cart-roocket')" class="form-control text-center">
+                                        <select onchange="changeQuantity(event, '{{ $cart['id'] }}' , 'cart-payment')" class="form-control text-center">
                                             @foreach(range(1 , $product->inventory) as $item)
                                                 <option value="{{ $item }}" {{  $cart['quantity'] == $item ? 'selected' : '' }}>{{ $item }}</option>
                                             @endforeach

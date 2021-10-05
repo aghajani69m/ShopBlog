@@ -15,7 +15,7 @@ class CartController extends Controller
 
     public function addToCart(Product $product)
     {
-        $cart = Cart::instance('cart-roocket');
+        $cart = Cart::instance('cart-payment');
 
         if( $cart->has($product) ) {
             if($cart->count($product) < $product->inventory)
