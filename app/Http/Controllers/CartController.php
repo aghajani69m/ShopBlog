@@ -13,9 +13,10 @@ class CartController extends Controller
         return view('home.cart');
     }
 
+
     public function addToCart(Product $product)
     {
-        $cart = Cart::instance('cart-payment');
+        $cart = Cart::instance();
 
         if( $cart->has($product) ) {
             if($cart->count($product) < $product->inventory)

@@ -10,15 +10,13 @@ use Illuminate\Support\Str;
 
 class CartService
 {
-
     protected $cart;
 
     protected $name = 'default';
 
     public function __construct()
     {
-//        $this->cart = session()->get($this->name) ?? collect([]);
-        $this->cart = collect(json_decode(request()->cookie($this->name) , true)) ?? collect([]);
+        $this->cart = session()->get($this->name) ?? collect([]);
     }
 
 
@@ -42,9 +40,7 @@ class CartService
         }
 
         $this->cart->put($value['id'] , $value);
-//        session()->put($this->name , $this->cart);
-        $this->storeCookie();
-
+        session()->put($this->name , $this->cart);
 
         return $this;
     }
@@ -108,8 +104,7 @@ class CartService
                 return $key != $item['id'];
             });
 
-//            session()->put($this->name , $this->cart);
-            $this->storeCookie();
+            session()->put($this->name , $this->cart);
 
             return true;
         }
@@ -125,14 +120,6 @@ class CartService
         });
 
         return $cart;
-    }
-
-    public function flush()
-    {
-        $this->cart = collect([]);
-        $this->storeCookie();
-
-        return $this;
     }
 
     protected function withRelationshipIfExist($item)
@@ -153,16 +140,10 @@ class CartService
         return $item;
     }
 
-    public function instance(string $name)
+    public function instance(string $name = 'default')
     {
-        $this->cart = collect(json_decode(request()->cookie($name) , true)) ?? collect([]);
+        $this->cart = session()->get($name) ?? collect([]);
         $this->name = $name;
         return $this;
     }
-
-    protected function storeCookie(): void
-    {
-        Cookie::queue($this->name, $this->cart->toJson(), 60 * 24 * 7);
-    }
-
 }
