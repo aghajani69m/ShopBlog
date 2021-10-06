@@ -53,7 +53,8 @@ Route::middleware('auth')->group(function() {
     });
     Route::post('comments' ,[HomeController::class,'comment'])->name('send.comment');
     Route::post('payment' ,[PaymentController::class,'payment'])->name('cart.payment');
-    Route::get('payment/callback' ,[PaymentController::class,'callback']);
+    Route::post('payment/callback' ,[PaymentController::class,'callback'])->name('payment.confirm');
+    Route::get('payment/callback/confirm' ,[PaymentController::class,'callbackConfirm']);
 
 });
 

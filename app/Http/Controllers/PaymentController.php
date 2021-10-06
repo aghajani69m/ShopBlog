@@ -50,7 +50,7 @@ class PaymentController extends Controller
             ]);
             $request->session()->flash('args' , $args);
 //            $cart->flush();
-            return redirect('payment/callback');
+            return redirect('payment/callback/confirm');
 //            return redirect($payment->getPayUrl());
         }
 
@@ -58,17 +58,25 @@ class PaymentController extends Controller
         return back();
     }
 
+    public function callbackConfirm(Request $request)
+    {
+        $request->session()->reflash();
+        return view('home.payment-confirm');
+
+    }
+
     public function callback(Request $request)
     {
-        $args = $request->session()->get('args');
+        if ($request->confirm === "true") {
+            $args = $request->session()->get('args');
 
-        $payment = Payment::where('resnumber', $args['clientRefId'])->firstOrFail();
+            $payment = Payment::where('resnumber', $args['clientRefId'])->firstOrFail();
 //        $token = config('services.payping.token');
 
 //        $payping = new \PayPing\Payment($token);
 
-        try {
-            // $payment->price
+            try {
+                // $payment->price
 //            if($payping->verify($request->refid, 1000)){
                 $payment->update([
                     'status' => 1
@@ -79,20 +87,57 @@ class PaymentController extends Controller
                 ]);
 
 
-
                 alert()->success('پرداخت شما موفق بود');
-            $cart = Cart::instance();
+                $cart = Cart::instance();
 
-            $cart->flush();
+                $cart->flush();
 
-            return redirect('/products');
-        } catch (\Exception $e) {
+                return redirect('/products');
+            } catch (\Exception $e) {
 
-            $errors = collect(json_decode($e->getMessage() , true));
+                $errors = collect(json_decode($e->getMessage(), true));
 
-            alert()->error($errors->first());
-            return redirect('/products');
+                alert()->error($errors->first());
+                return redirect('/products');
+            }
+
         }
+        if ($request->confirm === "false") {
+            $args = $request->session()->get('args');
 
+            $payment = Payment::where('resnumber', $args['clientRefId'])->firstOrFail();
+//        $token = config('services.payping.token');
+
+//        $payping = new \PayPing\Payment($token);
+
+            try {
+                // $payment->price
+//            if($payping->verify($request->refid, 1000)){
+                $payment->update([
+                    'status' => 0
+                ]);
+
+                $payment->order()->update([
+                    'status' => 'unpaid'
+                ]);
+
+
+                alert()->success('پرداخت شما موفق نبود');
+                $cart = Cart::instance();
+
+                $cart->flush();
+
+                return redirect('/products');
+            } catch (\Exception $e) {
+
+                $errors = collect(json_decode($e->getMessage(), true));
+
+                alert()->error($errors->first());
+                return redirect('/products');
+            }
+
+        }
     }
+
+
 }
