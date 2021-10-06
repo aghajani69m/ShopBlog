@@ -52,7 +52,7 @@
                         </thead>
                         <tbody>
 
-                        @foreach(\App\Helpers\Cart\Cart::all() as $cart)
+                        @foreach(\App\Helpers\Cart\Cart::instance()->all() as $cart)
                             @if(isset($cart['product']))
                                 @php
                                     $product = $cart['product'];
@@ -107,7 +107,7 @@
                             <label class="text-muted font-weight-normal m-0">قیمت کل</label>
 
                             @php
-                                $totalPrice = \App\Helpers\Cart\Cart::all()->sum(function($cart) {
+                                $totalPrice = \App\Helpers\Cart\Cart::instance()->all()->sum(function($cart) {
                                     return $cart['product']->price * $cart['quantity'];
                                 });
                             @endphp
@@ -117,7 +117,10 @@
                 </div>
 
                 <div class="float-left">
-                    <button type="button" class="btn btn-lg btn-primary mt-2">پرداخت</button>
+                    <form action="{{ route('cart.payment') }}" method="post" id="cart-payment">
+                        @csrf
+                    </form>
+                    <button onclick="document.getElementById('cart-payment').submit()" type="button" class="btn btn-lg btn-primary mt-2">پرداخت</button>
                 </div>
 
             </div>

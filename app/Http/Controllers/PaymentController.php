@@ -10,7 +10,7 @@ class PaymentController extends Controller
 {
     public function payment(Request $request)
     {
-        $cart = Cart::instance('cart-payment');
+        $cart = Cart::instance();
         $cartItems = $cart->all();
         if($cartItems->count()) {
             $price = $cartItems->sum(function($cart) {
@@ -28,7 +28,7 @@ class PaymentController extends Controller
 
             $order->products()->attach($orderItems);
 
-            $token = config('services.payping.token');
+//            $token = config('services.payping.token');
             $res_number = \Str::random();
             $args = [
                 "amount" => $price ,
@@ -49,7 +49,7 @@ class PaymentController extends Controller
                 'resnumber' => $res_number,
             ]);
             $request->session()->flash('args' , $args);
-
+//            $cart->flush();
             return redirect('payment/callback');
 //            return redirect($payment->getPayUrl());
         }
@@ -63,7 +63,6 @@ class PaymentController extends Controller
         $args = $request->session()->get('args');
 
         $payment = Payment::where('resnumber', $args['clientRefId'])->firstOrFail();
-
 //        $token = config('services.payping.token');
 
 //        $payping = new \PayPing\Payment($token);
@@ -82,16 +81,13 @@ class PaymentController extends Controller
 
 
                 alert()->success('پرداخت شما موفق بود');
-            $cart = Cart::instance('cart-payment');
+            $cart = Cart::instance();
 
             $cart->flush();
 
             return redirect('/products');
-//            }else{
-//                alert()->error('پرداخت شما تایید نشد');
-//                return redirect('/products');
-//            }
         } catch (\Exception $e) {
+
             $errors = collect(json_decode($e->getMessage() , true));
 
             alert()->error($errors->first());
