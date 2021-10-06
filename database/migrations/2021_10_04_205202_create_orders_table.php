@@ -30,6 +30,7 @@ class CreateOrdersTable extends Migration
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
 
             $table->integer('quantity');
+            $table->integer('price');
 
             $table->primary(['order_id' , 'product_id']);
         });
