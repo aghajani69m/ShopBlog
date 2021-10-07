@@ -24,6 +24,7 @@ Route::post('attribute/values' , [AttributeController::class,'getValues'])->name
 Route::resource('products', ProductController::class)->except('show');
 
 Route::resource('orders', OrderController::class)->except('create' , 'store');
+Route::get('orders/{order}/payments',[OrderController::class,'payments'])->name('orders.payments');
 
 Route::get('comments/unapproved', [CommentController::class,'unapproved'])->name('comments.unapproved');
 Route::resource('comments' , CommentController::class)->only(['index' , 'update' , 'destroy']);

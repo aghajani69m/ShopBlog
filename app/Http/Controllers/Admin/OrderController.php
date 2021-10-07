@@ -34,7 +34,14 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        $products = $order->products()->paginate(20);
+        return view('admin.orders.details' , compact('products' , 'order'));
+    }
+
+    public function payments(Order $order)
+    {
+        $payments = $order->payments()->latest()->paginate(20);
+        return view('admin.orders.payments' , compact('payments' , 'order'));
     }
 
     /**
