@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\User\PermissionController as PerController;
@@ -21,6 +22,8 @@ Route::resource('roles', RoleController::class)->except('show');
 Route::post('attribute/values' , [AttributeController::class,'getValues'])->name('attribute.values');
 
 Route::resource('products', ProductController::class)->except('show');
+
+Route::resource('orders', OrderController::class)->except('create' , 'store');
 
 Route::get('comments/unapproved', [CommentController::class,'unapproved'])->name('comments.unapproved');
 Route::resource('comments' , CommentController::class)->only(['index' , 'update' , 'destroy']);
