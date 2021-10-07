@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\User;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Validation\Rule;
 
@@ -74,6 +75,10 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
+        $filename = $data['name'] . rand(1000,9999);
+
+        $data['file_name'] = $filename;
+
         if($request->has('is_admin') && $request->is_admin == 'on') {
             $data['is_admin'] = true ;
 
@@ -90,6 +95,7 @@ class UserController extends Controller
         }else{
             $data['is_superuser'] = false ;
         }
+        File::makeDirectory(public_path().'/images/users/'.$filename);
 
         $user = User::create($data);
 

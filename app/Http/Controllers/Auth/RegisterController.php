@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
@@ -64,10 +65,15 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        $filename = $data['name'] . rand(1000,9999);
+        File::makeDirectory(public_path().'/images/users/'.$filename);
+
         return User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => $data['password'],
+            'file_name' => $filename,
         ]);
+
     }
 }

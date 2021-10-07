@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\CommentController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\ProductGalleryController;
 use App\Http\Controllers\Admin\User\PermissionController as PerController;
 use App\Http\Controllers\Admin\RoleController;
 use App\Http\Controllers\Admin\User\UserController;
@@ -25,6 +26,9 @@ Route::resource('products', ProductController::class)->except('show');
 
 Route::resource('orders', OrderController::class)->except('create' , 'store');
 Route::get('orders/{order}/payments',[OrderController::class,'payments'])->name('orders.payments');
+
+Route::resource('products.gallery' , ProductGalleryController::class);
+
 
 Route::get('comments/unapproved', [CommentController::class,'unapproved'])->name('comments.unapproved');
 Route::resource('comments' , CommentController::class)->only(['index' , 'update' , 'destroy']);

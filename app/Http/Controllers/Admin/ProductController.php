@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -55,6 +56,7 @@ class ProductController extends Controller
             'title' => 'required',
             'description' => 'required',
             'price' => 'required',
+            'image' => 'required',
             'inventory' => 'required',
             'categories' => 'required',
             'attributes' => 'array'
@@ -63,7 +65,8 @@ class ProductController extends Controller
         $product = auth()->user()->products()->create($validData);
         $product->categories()->sync($validData['categories']);
 
-        $this->attachAttributesToProduct($product, $validData);
+        if(isset($validData['attributes']))
+            $this->attachAttributesToProduct($product, $validData);
 
         alert()->success('محصول مورد نظر با موفقیت ثبت شد' , 'با تشکر');
         return redirect(route('admin.products.index'));
@@ -77,7 +80,6 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-//        $product->attributes()->pivot->value;
         return view('admin.products.edit' , compact('product'));
     }
 
@@ -95,15 +97,20 @@ class ProductController extends Controller
             'description' => 'required',
             'price' => 'required',
             'inventory' => 'required',
+            'image' => 'required',
             'categories' => 'required',
-            'attributes' => 'required'
+            'attributes' => 'array'
         ]);
+
+//        Storage::disk('public')->putFileAs('files' , $request->file('file') , $request->file('file')->getClientOriginalName());
 
         $product->update($validData);
         $product->categories()->sync($validData['categories']);
 
         $product->attributes()->detach();
-        $this->attachAttributesToProduct($product, $validData);
+
+        if(isset($validData['attributes']))
+            $this->attachAttributesToProduct($product, $validData);
 
 
         alert()->success('محصول مورد نظر با موفقیت ویرایش شد' , 'با تشکر');

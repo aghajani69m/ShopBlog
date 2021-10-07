@@ -6,6 +6,8 @@
     "license": "MIT",
     "require": {
         "php": "^7.3|^8.0",
+        "ext-json": "*",
+        "alexusmai/laravel-file-manager": "^2.5",
         "fruitcake/laravel-cors": "^2.0",
         "ghasedak/php": "dev-master",
         "guzzlehttp/guzzle": "^7.0.1",
@@ -15,8 +17,7 @@
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.3",
         "morilog/jalali": "^3.2",
-        "uxweb/sweet-alert": "^2.0",
-        "ext-json": "*"
+        "uxweb/sweet-alert": "^2.0"
     },
     "require-dev": {
         "facade/ignition": "^2.5",

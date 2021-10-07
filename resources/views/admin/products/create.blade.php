@@ -6,7 +6,32 @@
     @endslot
 
     @slot('script')
+        <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+        <script>tinymce.init({selector:'#description'});</script>
+{{--        <script src="/js/ckeditor5-build-classic/ckeditor.js"></script>--}}
         <script>
+            // CKEDITOR.replace('description', { filebrowserImageBrowseUrl: '/file-manager/ckeditor' });
+            // ClassicEditor
+            //     .create( document.querySelector( '#description' ) )
+            //     .catch( error => {
+            //         console.error( error );
+            //     } );
+
+            document.addEventListener("DOMContentLoaded", function() {
+
+                document.getElementById('button-image').addEventListener('click', (event) => {
+                    event.preventDefault();
+
+                    window.open('/file-manager/fm-button', 'fm', 'width=1000,height=600');
+                });
+            });
+
+            // set file link
+            function fmSetLink($url) {
+                document.getElementById('image_label').value = $url;
+            }
+
+
             $('#categories').select2({
                 'placeholder' : 'دسترسی مورد نظر را انتخاب کنید'
             })
@@ -34,10 +59,10 @@
                         valueBox.html(`
                             <option value="" selected>انتخاب کنید</option>
                             ${
-                            res.data.map(function (item) {
-                                return `<option value="${item}">${item}</option>`
-                            })
-                        }
+                                res.data.map(function (item) {
+                                    return `<option value="${item}">${item}</option>`
+                                })
+                            }
                         `);
                     }
                 });
@@ -53,10 +78,10 @@
                                  <select name="attributes[${id}][name]" onchange="changeAttributeValues(event, ${id});" class="attribute-select form-control">
                                     <option value="">انتخاب کنید</option>
                                     ${
-                    attributes.map(function(item) {
-                        return `<option value="${item}">${item}</option>`
-                    })
-                }
+                                        attributes.map(function(item) {
+                                            return `<option value="${item}">${item}</option>`
+                                        })
+                                    }
                                  </select>
                             </div>
                         </div>
@@ -106,7 +131,7 @@
                 <!-- /.card-header -->
                 <!-- form start -->
                 <div id="attributes" data-attributes="{{ json_encode(\App\Models\Attribute::all()->pluck('name')) }}"></div>
-                <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST">
+                <form class="form-horizontal" action="{{ route('admin.products.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <div class="card-body">
@@ -115,8 +140,8 @@
                             <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="نام محصول را وارد کنید" value="{{ old('title') }}">
                         </div>
                         <div class="form-group">
-                            <label for="inputEmail3" class="col-sm-2 control-label">توضیحات</label>
-                            <textarea class="form-control" name="description" id="description" cols="30" rows="10">{{ old('description') }}</textarea>
+                            <label for="description" class="col-sm-2 control-label">توضیحات</label>
+                            <textarea class="form-control" name="description" id="description" cols="30" rows="10" style="min-height: 300px">{{ old('description') }}</textarea>
                         </div>
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">قیمت</label>
@@ -125,6 +150,15 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">موجودی</label>
                             <input type="number" name="inventory" class="form-control" id="inputPassword3" placeholder="موجودی را وارد کنید" value="{{ old('inventory') }}">
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-2 control-label">آپلود تصویر شاخص</label>
+                            <div class="input-group">
+                                <input type="text" id="image_label" class="form-control" name="image">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-image">انتخاب</button>
+                                </div>
+                            </div>
                         </div>
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">دسته بندی ها</label>
@@ -151,5 +185,7 @@
             </div>
         </div>
     </div>
+
+
 
 @endcomponent

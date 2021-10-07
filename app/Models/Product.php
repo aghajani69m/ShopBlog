@@ -11,7 +11,7 @@ class Product extends Model
     use HasFactory;
 
     protected $fillable = [
-        'title' , 'description' , 'price' , 'inventory' , 'view_count'
+        'title' , 'description' , 'price' , 'inventory' , 'view_count' , 'image'
     ];
 
     public function comments()
@@ -31,5 +31,9 @@ class Product extends Model
     public function orders()
     {
         return $this->belongsToMany(Order::class);
+    }
+    public function gallery()
+    {
+        return $this->hasMany(ProductGallery::class);
     }
 }
