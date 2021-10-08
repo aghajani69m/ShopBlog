@@ -62,14 +62,14 @@
     <!-- Ionicons -->
     <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
     <!-- bootstrap rtl -->
-    <link rel="stylesheet" href="../../dist/css/bootstrap-rtl.min.css">
+    <link rel="stylesheet" href="/dist/css/bootstrap-rtl.min.css">
     <!-- template rtl version -->
-    <link rel="stylesheet" href="../../dist/css/custom-style.css">
+    <link rel="stylesheet" href="/dist/css/custom-style.css">
 </head>
 <body class="hold-transition lockscreen">
 <!-- Automatic element centering -->
@@ -86,7 +86,7 @@
     <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-            <img src="../../dist/img/user1-128x128.jpg" alt="User Image">
+            <img src="/dist/img/user1-128x128.jpg" alt="User Image">
         </div>
         <!-- /.lockscreen-image -->
 
@@ -117,8 +117,8 @@
 <!-- /.center -->
 
 <!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
+<script src="/plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

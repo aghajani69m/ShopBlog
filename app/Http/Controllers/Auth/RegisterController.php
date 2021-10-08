@@ -66,7 +66,7 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         $filename = $data['name'] . rand(1000,9999);
-        File::makeDirectory(public_path().'/images/users/'.$filename);
+        File::makeDirectory(public_path().'/images/'.$filename);
 
         return User::create([
             'name' => $data['name'],

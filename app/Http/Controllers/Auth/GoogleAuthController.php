@@ -32,7 +32,7 @@ class GoogleAuthController extends Controller
                     'two_factor_type' => 'off',
                     'file_name' => $filename
                 ]);
-                File::makeDirectory(public_path().'/images/users/'.$filename);
+                File::makeDirectory(public_path().'/images/'.$filename);
 
             }
 

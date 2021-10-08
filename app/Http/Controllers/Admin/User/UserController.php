@@ -79,25 +79,36 @@ class UserController extends Controller
 
         $data['file_name'] = $filename;
 
-        if($request->has('is_admin') && $request->is_admin == 'on') {
+        File::makeDirectory(public_path().'/images/users/'.$filename);
+
+        $user = User::create($data);
+
+        if( $request->is_admin == 'on') {
             $data['is_admin'] = true ;
+            $user->roles()->attach([
+                $user->id => '1',
+            ]);
 
         }else{
             $data['is_admin'] = false ;
         }
-        if($request->has('is_staff') && $request->is_staff == 'on') {
+        if( $request->is_staff == 'on') {
             $data['is_staff'] = true ;
+            $user->roles()->attach([
+                $user->id => '2',
+            ]);
         }else{
             $data['is_staff'] = false ;
         }
-        if($request->has('is_superuser') && $request->is_superuser == 'on') {
+        if( $request->is_superuser == 'on') {
             $data['is_superuser'] = true ;
+            $user->roles()->attach([
+                $user->id => '3',
+            ]);
         }else{
             $data['is_superuser'] = false ;
         }
-        File::makeDirectory(public_path().'/images/users/'.$filename);
 
-        $user = User::create($data);
 
         if($request->has('verify')) {
             $user->markEmailAsVerified();
@@ -140,20 +151,39 @@ class UserController extends Controller
 
             $data['password'] = $request->password;
         }
-        if($request->has('is_admin') && $request->is_admin == 'on') {
+
+        if( $request->is_admin == 'on') {
             $data['is_admin'] = true ;
+            $user->roles()->attach([
+                $user->id => '1',
+            ]);
         }else{
             $data['is_admin'] = false ;
+            $user->roles()->detach([
+                $user->id => '1',
+            ]);
         }
-        if($request->has('is_staff') && $request->is_staff == 'on') {
+        if($request->is_staff == 'on') {
             $data['is_staff'] = true ;
+            $user->roles()->attach([
+                $user->id => '2',
+            ]);
         }else{
             $data['is_staff'] = false ;
+            $user->roles()->detach([
+                $user->id => '2',
+            ]);
         }
-        if($request->has('is_superuser') && $request->is_superuser == 'on') {
+        if( $request->is_superuser == 'on') {
             $data['is_superuser'] = true ;
+            $user->roles()->attach([
+                $user->id => '3',
+            ]);
         }else{
             $data['is_superuser'] = false ;
+            $user->roles()->detach([
+                $user->id => '3',
+            ]);
         }
         $user->update($data);
 
