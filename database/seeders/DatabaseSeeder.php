@@ -50,6 +50,10 @@ class DatabaseSeeder extends Seeder
         Permission::factory()->create(['name' => 'delete-category' , 'label' => 'حذف دسته بندی']);
         Permission::factory()->create(['name' => 'show-staff-users' , 'label' => 'مشاهده مدیران']);
         Permission::factory()->create(['name' => 'staff-user-permissions' , 'label' => 'مدیریت دسترسی مدیران']);
+        Permission::factory()->create(['name' => 'show-orders' , 'label' => 'مشاهده سفارشات']);
+        Permission::factory()->create(['name' => 'edit-order' , 'label' => 'ویرایش سفارش']);
+        Permission::factory()->create(['name' => 'delete-order' , 'label' => 'حذف سفارش']);
+
 
         Product::factory(500)->create();
 

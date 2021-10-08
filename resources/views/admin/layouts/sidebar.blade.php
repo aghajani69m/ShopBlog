@@ -140,7 +140,7 @@
                             </ul>
                         </li>
                     @endcan
-
+                    @can('show-orders')
                     <li class="nav-item has-treeview {{ isActive(['admin.orders.index',] , 'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(['admin.orders.index']) }}">
                             <i class="nav-icon fa fa-users"></i>
@@ -202,6 +202,7 @@
                             </li>
                         </ul>
                     </li>
+                    @endcan
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->

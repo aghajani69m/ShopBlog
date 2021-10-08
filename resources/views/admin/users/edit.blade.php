@@ -35,7 +35,7 @@
                             <label for="inputPassword3" class="col-sm-2 control-label">تکرار پسورد</label>
                             <input type="password" name="password_confirmation" class="form-control" id="inputPassword3" placeholder="پسورد را وارد کنید">
                         </div>
-                        @can('admin')
+                        @can('edit-user')
                         <div class="form-check">
                             <input type="checkbox" name="is_admin" class="form-check-input d-flex" id="verify" {{ $user->isAdmin() ? 'checked' : ''}}>
                             <label class="form-check-label d-flex" for="verify">ادمین</label>

@@ -9,6 +9,12 @@ use Illuminate\Validation\Rule;
 
 class OrderController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('can:show-orders')->only(['index' , 'show' , 'payments']);
+        $this->middleware('can:edit-order')->only(['edit' , 'update']);
+        $this->middleware('can:delete-order')->only(['destroy']);
+    }
 
     /**
      * Display a listing of the resource.

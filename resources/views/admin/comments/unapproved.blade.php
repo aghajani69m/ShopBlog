@@ -49,7 +49,7 @@
                                                 <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
                                             </form>
                                         @endcan
-                                        @can('delete-comment')
+                                        @can('edit-comment')
                                             <form action="{{ route('admin.comments.update' , $comment->id) }}" method="POST">
                                                 @csrf
                                                 @method('PATCH')

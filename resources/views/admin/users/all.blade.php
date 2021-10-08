@@ -25,7 +25,7 @@
                                 <a href="{{ route('admin.users.create') }}" class="btn btn-info">ایجاد کاربر جدید</a>
                             @endcan
                             @can('show-staff-users')
-                                <a href="{{ request()->fullUrlWithQuery(['admin' => 1])  }}" class="btn btn-warning">کاربران مدیر</a>
+                                <a href="{{ request()->fullUrlWithQuery(['admin' => 1 ,'staff'=>1 ,'superuser'=>1 , 'superadmin'=>1])  }}" class="btn btn-warning">کاربران مدیر</a>
                             @endcan
                         </div>
                     </div>
@@ -63,11 +63,9 @@
                                     @can('edit-user')
                                     <a href="{{ route('admin.users.edit' , ['user' => $user->id]) }}" class="btn btn-sm btn-primary ml-1">ویرایش</a>
                                     @endcan
-                                    @if($user->isStaffUser())
                                         @can('staff-user-permissions')
                                         <a href="{{ route('admin.users.permissions' , ['user' => $user->id]) }}" class="btn btn-sm btn-warning">دسترسی ها</a>
                                         @endcan
-                                    @endif
                                 </td>
                             </tr>
                         @endforeach

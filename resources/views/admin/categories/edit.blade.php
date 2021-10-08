@@ -26,7 +26,7 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">دسته مرتبط</label>
                             <select class="form-control" name="parent" id="permissions">
-                                @foreach(\App\Category::all() as $cate)
+                                @foreach(\App\Models\Category::all() as $cate)
                                     <option value="{{ $cate->id }}" {{ $cate->id === $category->parent ? 'selected' : '' }}>{{ $cate->name }}</option>
                                 @endforeach
                             </select>
