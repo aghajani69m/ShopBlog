@@ -154,7 +154,7 @@ class UserController extends Controller
 
         if( $request->is_admin == 'on') {
             $data['is_admin'] = true ;
-            $user->roles()->attach([
+            $user->roles()->sync([
                 $user->id => '1',
             ]);
         }else{
@@ -165,7 +165,7 @@ class UserController extends Controller
         }
         if($request->is_staff == 'on') {
             $data['is_staff'] = true ;
-            $user->roles()->attach([
+            $user->roles()->sync([
                 $user->id => '2',
             ]);
         }else{
@@ -176,7 +176,7 @@ class UserController extends Controller
         }
         if( $request->is_superuser == 'on') {
             $data['is_superuser'] = true ;
-            $user->roles()->attach([
+            $user->roles()->sync([
                 $user->id => '3',
             ]);
         }else{

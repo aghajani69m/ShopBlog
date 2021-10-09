@@ -22,6 +22,9 @@
                         @endforeach
                     </div>
                 @endforeach
+                <div class="card-footer">
+                    {{ $products->appends([ 'search' => request('search') ])->render() }}
+                </div>
             </div>
         </div>
     </div>

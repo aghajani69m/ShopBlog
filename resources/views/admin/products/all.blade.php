@@ -69,7 +69,7 @@
                 </div>
                 <!-- /.card-body -->
                 <div class="card-footer">
-                    {{ $products->appends([ 'search' => request('search') ])->render() }}
+                    {{ $products->appends(['search' => request('search') ])->render() }}
                 </div>
             </div>
             <!-- /.card -->

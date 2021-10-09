@@ -9,15 +9,34 @@ use App\Models\User;
 use App\Notifications\ActiveCodeNotification;
 use App\Notifications\LoginToWebsiteNotification;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
+use function PHPUnit\Framework\isNull;
 
 trait TwoFactorAuthenticate
 {
     public function loggedin(Request $request , $user)
     {
         if($user->hasTwoFactorAuthenticatedEnabled()) {
+            if (!isset($user->file_name)) {
+                $filename = $user->name.rand(1000,9999);
+                File::makeDirectory(public_path().'/images/'.$filename);
+                $user->update([
+                    'file_name' => $filename
+                ]);
+            }
+
             return $this->logoutAndRedirectToTokenEntry($request , $user);
         }
+
+        if (!isset($user->file_name)) {
+            $filename = $user->name.rand(1000,9999);
+            File::makeDirectory(public_path().'/images/'.$filename);
+            $user->update([
+                'file_name' => $filename
+            ]);
+        }
+
         $user->notify(new LoginToWebsiteNotification());
         return false;
     }

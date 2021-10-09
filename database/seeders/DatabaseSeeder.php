@@ -25,7 +25,7 @@ class DatabaseSeeder extends Seeder
             'email'=>'aghajani69m@gmail.com' ,
             'password'=>'password' ,
             'is_superadmin'=>'1']);
-        User::factory(50)->create();
+        User::factory(20)->create();
         Permission::factory()->create(['name' => 'create-user' , 'label' => 'ایجاد کاربر']);
         Permission::factory()->create(['name' => 'show-users' , 'label' => 'مشاهده کاربران']);
         Permission::factory()->create(['name' => 'edit-user' , 'label' => 'ویرایش کاربر']);
@@ -48,6 +48,10 @@ class DatabaseSeeder extends Seeder
         Permission::factory()->create(['name' => 'create-category' , 'label' => 'ایجاد دسته بندی']);
         Permission::factory()->create(['name' => 'edit-category' , 'label' => 'ویرایش دسته بندی']);
         Permission::factory()->create(['name' => 'delete-category' , 'label' => 'حذف دسته بندی']);
+        Permission::factory()->create(['name' => 'show-discounts' , 'label' => 'مشاهده تخفیف ها']);
+        Permission::factory()->create(['name' => 'create-discount' , 'label' => 'ایجاد تخفیف']);
+        Permission::factory()->create(['name' => 'edit-discount' , 'label' => 'ویرایش تخفیف']);
+        Permission::factory()->create(['name' => 'delete-discount' , 'label' => 'حذف تخفیف']);
         Permission::factory()->create(['name' => 'show-staff-users' , 'label' => 'مشاهده مدیران']);
         Permission::factory()->create(['name' => 'staff-user-permissions' , 'label' => 'مدیریت دسترسی مدیران']);
         Permission::factory()->create(['name' => 'show-orders' , 'label' => 'مشاهده سفارشات']);
@@ -55,7 +59,7 @@ class DatabaseSeeder extends Seeder
         Permission::factory()->create(['name' => 'delete-order' , 'label' => 'حذف سفارش']);
 
 
-        Product::factory(500)->create();
+        Product::factory(50)->create();
 
         Role::factory()->create(['name' => 'admin' , 'label' => 'ادمین']);
         Role::factory()->create(['name' => 'staff' , 'label' => 'کارمند']);

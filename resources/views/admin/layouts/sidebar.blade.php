@@ -140,6 +140,26 @@
                             </ul>
                         </li>
                     @endcan
+                    @can('show-discounts')
+                        <li class="nav-item has-treeview {{ isActive('admin.discount.index' , 'menu-open') }}">
+                            <a href="#" class="nav-link {{ isActive('admin.discount.index') }}">
+                                <i class="nav-icon fa fa-users"></i>
+                                <p>
+                                    تخفیف ها
+                                    <i class="right fa fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.discount.index') }}" class="nav-link {{ isActive('admin.discount.index') }}">
+                                        <i class="fa fa-circle-o nav-icon"></i>
+                                        <p>لیست تخفیف ها</p>
+                                    </a>
+                                </li>
+
+                            </ul>
+                        </li>
+                    @endcan
                     @can('show-orders')
                     <li class="nav-item has-treeview {{ isActive(['admin.orders.index',] , 'menu-open') }}">
                         <a href="#" class="nav-link {{ isActive(['admin.orders.index']) }}">

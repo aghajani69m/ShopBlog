@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AttributeController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\CommentController;
+use App\Http\Controllers\Admin\DiscountController;
 use App\Http\Controllers\Admin\OrderController;
 use App\Http\Controllers\Admin\PermissionController;
 use App\Http\Controllers\Admin\ProductController;
@@ -34,3 +35,5 @@ Route::get('comments/unapproved', [CommentController::class,'unapproved'])->name
 Route::resource('comments' , CommentController::class)->only(['index' , 'update' , 'destroy']);
 
 Route::resource('categories', CategoryController::class)->except('show');
+
+Route::resource('discount', DiscountController::class)->except('show');
