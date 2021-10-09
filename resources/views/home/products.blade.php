@@ -11,13 +11,15 @@
                     <div class="row">
                         @foreach($row as $product)
                             <div class="col-3">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h5 class="card-title">{{ $product->title }}</h5>
-                                        <p class="card-text">{{ $product->description }}</p>
-                                        <a href="/products/{{ $product->id }}" class="btn btn-primary">جزئیات محصول</a>
-                                    </div>
+                            <div class="card card-group mb-2" >
+                                <img src="{{$product->image}}" class="card-img-top" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ $product->title }}</h5>
+                                    <p class="card-text">{{ substr($product->description,0,50) . "..." }}</p>
+
+                                    <a href="/products/{{ $product->id }}" class="btn btn-primary">جزئیات محصول</a>
                                 </div>
+                            </div>
                             </div>
                         @endforeach
                     </div>

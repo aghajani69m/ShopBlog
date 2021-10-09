@@ -16,6 +16,7 @@
     <link rel="stylesheet" href="/plugins/morris/morris.css">
 
     <meta name="csrf-token" content="{{ csrf_token() }}">
+    <link href="https://cdn.rawgit.com/rastikerdar/vazir-font/v21.2.1/dist/font-face.css" rel="stylesheet" type="text/css" />
 
 
     <link rel="stylesheet" href="/plugins/select2/select2.css">
@@ -30,6 +31,8 @@
     <!-- Google Font: Source Sans Pro -->
     <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/admin.css') }}">
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
     @yield('head')
 </head>
 <body class="hold-transition sidebar-mini">

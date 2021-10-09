@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Discount;
 use Illuminate\Http\Request;
+use Illuminate\Validation\Rule;
 use function PHPUnit\Framework\isNull;
 
 class DiscountController extends Controller
@@ -97,7 +98,31 @@ class DiscountController extends Controller
      */
     public function update(Request $request, Discount $discount)
     {
-        //
+        $validated = $request->validate([
+            'code' => ['required' , Rule::unique('discounts' , 'code')->ignore($discount->id)],
+            'percent' => 'required|integer|between:1,99',
+            'users' => 'nullable|array|exists:users,id',
+            'products' => 'nullable|array|exists:products,id',
+            'categories' => 'nullable|array|exists:categories,id',
+            'expired_at' => 'required'
+        ]);
+
+        $discount->update($validated);
+
+        isset($validated['users'])
+            ? $discount->users()->sync($validated['users'])
+            : $discount->users()->detach();
+
+        isset($validated['products'])
+            ? $discount->products()->sync($validated['products'])
+            : $discount->products()->detach();
+
+        isset($validated['categories'])
+            ? $discount->categories()->sync($validated['categories'])
+            : $discount->categories()->detach();
+
+
+        return redirect(route('admin.discount.index'));
     }
 
     /**
@@ -108,6 +133,7 @@ class DiscountController extends Controller
      */
     public function destroy(Discount $discount)
     {
-        //
+        $discount->delete();
+        return back();
     }
 }
