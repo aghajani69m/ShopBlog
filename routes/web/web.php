@@ -3,6 +3,7 @@
 use App\Http\Controllers\Auth\AuthTokenController;
 use App\Http\Controllers\Auth\GoogleAuthController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\DiscountController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
@@ -67,3 +68,5 @@ Route::post('cart/add/{product}' , [CartController::class,'addToCart'])->name('c
 Route::patch('cart/quantity/change' , [CartController::class,'quantityChange'])->name('quantity.change');
 Route::delete('cart/delete/{cart}' , [CartController::class,'deleteFromCart'])->name('cart.destroy');
 Route::get('cart' , [CartController::class,'cart']);
+
+Route::post('discount/check' , [DiscountController::class, 'check'])->name('cart.discount.check');

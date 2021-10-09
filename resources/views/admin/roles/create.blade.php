@@ -37,7 +37,7 @@
                         <div class="form-group">
                             <label for="inputEmail3" class="col-sm-2 control-label">دسترسی ها</label>
                             <select class="form-control" name="permissions[]" id="permissions" multiple>
-                                @foreach(\App\Permission::all() as $permission)
+                                @foreach(\App\Models\Permission::all() as $permission)
                                     <option value="{{ $permission->id }}">{{ $permission->name }} - {{ $permission->label }}</option>
                                 @endforeach
                             </select>

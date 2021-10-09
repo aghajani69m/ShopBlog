@@ -97,7 +97,32 @@
                 </div>
                 <!-- / Shopping cart table -->
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
-                    <div class="mt-4"></div>
+
+
+                    <form action="{{route('cart.discount.check')}}" method="POST" class="mt-4">
+
+                        @csrf
+
+                        <input type="hidden" name="cart" value="default">
+
+                        <input type="text" class="form-control" name="discount" placeholder="کد تخفیف داری؟">
+
+                        <button class="btn btn-success mt-2" type="submit">اعمال تخفیف</button>
+
+                        @if($errors->has('discount'))
+
+                            <div class="text-danger text-sm mt-2">
+
+                                {{$errors->first('discount')}}
+
+                            </div>
+
+                        @endif
+
+                    </form>
+
+
+
                     <div class="d-flex">
                         {{--                        <div class="text-right mt-4 mr-5">--}}
                         {{--                            <label class="text-muted font-weight-normal m-0">Discount</label>--}}
