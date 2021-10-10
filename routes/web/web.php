@@ -70,3 +70,4 @@ Route::delete('cart/delete/{cart}' , [CartController::class,'deleteFromCart'])->
 Route::get('cart' , [CartController::class,'cart']);
 
 Route::post('discount/check' , [DiscountController::class, 'check'])->name('cart.discount.check');
+Route::delete('discount/delete' ,[DiscountController::class, 'destroy'])->name('discount.delete');

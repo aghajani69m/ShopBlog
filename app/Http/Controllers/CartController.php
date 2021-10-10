@@ -17,7 +17,6 @@ class CartController extends Controller
     public function addToCart(Product $product)
     {
         $cart = Cart::instance();
-
         if( $cart->has($product) ) {
             if($cart->count($product) < $product->inventory)
                 $cart->update($product , 1);

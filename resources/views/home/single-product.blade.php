@@ -90,14 +90,12 @@
                     <div class="card-header d-flex justify-content-between">
 
                         {{ $product->title }}
-                        @if(\App\Helpers\Cart\Cart::count($product) < $product->inventory)
+{{--                   @if(\App\Helpers\Cart\Cart::count($product) < $product->inventory)--}}
                         <form action="{{ route('cart.add' , $product->id) }}" method="POST" id="add-to-cart">
-                        @csrf
+                            @csrf
                         </form>
-
                         <span onclick="document.getElementById('add-to-cart').submit()" class="btn btn-sm btn-danger">اضافه کردن به سبد خرید</span>
-                        @else <span class = "btn btn-warning">اتمام موجودی</span>
-                        @endif
+{{--                   @endif--}}
                     </div>
 
                     <div class="card-body">

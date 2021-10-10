@@ -72,7 +72,14 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="text-right font-weight-semibold align-middle p-4">{{ $product->price }} تومان</td>
+                                    @if(! $cart['discount_percent'])
+                                        <td class="text-right font-weight-semibold align-middle p-4">{{ $product->price }} تومان</td>
+                                    @else
+                                        <td class="text-right font-weight-semibold align-middle p-4">
+                                        <del class = "text-danger text-sm">{{ $product->price }} </del>
+                                        <span>{{$product->price - ($product->price * $cart['discount_percent'])}}تومان</span>
+                                        </td>
+                                    @endif
                                     <td class="align-middle p-4">
                                         <select onchange="changeQuantity(event, '{{ $cart['id'] }}')" class="form-control text-center">
                                             @foreach(range(1 , $product->inventory) as $item)
@@ -80,7 +87,14 @@
                                             @endforeach
                                         </select>
                                     </td>
-                                    <td class="text-right font-weight-semibold align-middle p-4">تومان {{ $product->price * $cart['quantity'] }}</td>
+                                    @if(! $cart['discount_percent'])
+                                        <td class="text-right font-weight-semibold align-middle p-4">تومان {{ $product->price * $cart['quantity'] }}</td>
+                                    @else
+                                        <td class="text-right font-weight-semibold align-middle p-4">
+                                            <del class = "text-danger text-sm">{{ $product->price * $cart['quantity'] }} </del>
+                                            <span>{{($product->price - ($product->price * $cart['discount_percent'])) * $cart['quantity'] }}تومان</span>
+                                        </td>
+                                    @endif
                                     <td class="text-center align-middle px-0">
                                         <form action="{{ route('cart.destroy' , $cart['id']) }}" id="delete-cart-{{ $product->id }}" method="post">
                                             @csrf
@@ -99,27 +113,49 @@
                 <div class="d-flex flex-wrap justify-content-between align-items-center pb-4">
 
 
-                    <form action="{{route('cart.discount.check')}}" method="POST" class="mt-4">
+                @if($discount = \App\Helpers\Cart\Cart::getDiscount())
+                    <div class="mt-4">
+                        <form action="{{route('discount.delete')}}" method="POST" id="delete-discount">
+                            @csrf
+                            @method('delete')
+                            <input type="hidden" name="cart" value="default">
 
-                        @csrf
+                        </form>
 
-                        <input type="hidden" name="cart" value="default">
+                        <span>
+                            کد تخفیف اعمال شده : <span class="text-success ">{{$discount->code}}</span>
+                            <a href="#" class="badge badge-danger" onclick="event.preventDefault();document.getElementById('delete-discount').submit()">حذف</a>
+                            <div>درصد تخفیف : <span class="text-success">{{$discount->percent}}درصد</span></div>
+                        </span>
 
-                        <input type="text" class="form-control" name="discount" placeholder="کد تخفیف داری؟">
+                    </div>
 
-                        <button class="btn btn-success mt-2" type="submit">اعمال تخفیف</button>
 
-                        @if($errors->has('discount'))
 
-                            <div class="text-danger text-sm mt-2">
+                    @else
+                        <form action="{{route('cart.discount.check')}}" method="POST" class="mt-4">
 
-                                {{$errors->first('discount')}}
+                            @csrf
 
-                            </div>
+                            <input type="hidden" name="cart" value="default">
 
-                        @endif
+                            <input type="text" class="form-control" name="discount" placeholder="کد تخفیف داری؟">
 
-                    </form>
+                            <button class="btn btn-success mt-2" type="submit">اعمال تخفیف</button>
+
+                            @if($errors->has('discount'))
+
+                                <div class="text-danger text-sm mt-2">
+
+                                    {{$errors->first('discount')}}
+
+                                </div>
+
+                            @endif
+
+                        </form>
+
+                    @endif
 
 
 
@@ -132,11 +168,22 @@
                             <label class="text-muted font-weight-normal m-0">قیمت کل</label>
 
                             @php
-                                $totalPrice = \App\Helpers\Cart\Cart::instance()->all()->sum(function($cart) {
+                            $originalPrice = \App\Helpers\Cart\Cart::instance()->all()->sum(function($cart) {
                                     return $cart['product']->price * $cart['quantity'];
+                                    });
+                                $totalPrice = \App\Helpers\Cart\Cart::instance()->all()->sum(function($cart) {
+                                    return $cart['discount_percent'] == 0
+                                        ? $cart['product']->price * $cart['quantity']
+                                        : ($cart['product']->price - ($cart['product']->price *  $cart['discount_percent'])) * $cart['quantity'];
                                 });
                             @endphp
-                            <div class="text-large"><strong>{{ $totalPrice }} تومان</strong></div>
+                            <div class="text-large">
+                                @if($originalPrice != $totalPrice)
+                                    <del>{{$originalPrice}}تومان</del>
+                                    <br>
+
+                                @endif
+                                <strong>{{ $totalPrice }} تومان</strong></div>
                         </div>
                     </div>
                 </div>

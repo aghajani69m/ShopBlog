@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Cart\Cart;
 use App\Models\Discount;
 use Illuminate\Http\Request;
 
@@ -35,8 +36,20 @@ class DiscountController extends Controller
                 ]);
             }
         }
-        return 'ok';
+
+        $cart = Cart::instance($validated['cart']);
+        $cart->addDiscount($discount->code);
+        return back();
 
 
     }
+
+
+    public function destroy(Request $request)
+    {
+        $cart = Cart::instance();
+        $cart->addDiscount(null);
+        return back();
+    }
+
 }

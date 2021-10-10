@@ -4,6 +4,7 @@
 namespace App\Helpers\Cart;
 
 
+use App\Models\Discount;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Str;
@@ -17,8 +18,11 @@ class CartService
     public function __construct()
     {
 //        $this->cart = session()->get($this->name) ?? collect([]);
-          $this->cart = collect(json_decode(request()->cookie($this->name) , true)) ?? collect([]);
-
+          $cart = collect(json_decode(request()->cookie($this->name) , true))?? collect([]);
+          $this->cart = $cart->count() ? $cart : collect([
+              'items' => [],
+              'discount' => null
+          ]);
     }
 
 
@@ -33,7 +37,8 @@ class CartService
             $value = array_merge($value , [
                 'id' => Str::random(10),
                 'subject_id' => $obj->id,
-                'subject_type' => get_class($obj)
+                'subject_type' => get_class($obj),
+                'discount_percent' => 0
             ]);
         } elseif(! isset($value['id'])) {
             $value = array_merge($value , [
@@ -41,9 +46,11 @@ class CartService
             ]);
         }
 
-        $this->cart->put($value['id'] , $value);
+        $this->cart['items']=collect($this->cart['items'])->put($value['id'] , $value);
 //        session()->put($this->name , $this->cart);
-        Cookie::queue($this->name , $this->cart->toJson() , 60 * 24 * 7 );
+//        Cookie::queue($this->name , $this->cart->toJson() , 60 * 24 * 7 );
+
+        $this->storeCookie();
 
 
         return $this;
@@ -79,20 +86,21 @@ class CartService
     {
         if($key instanceof Model) {
             return ! is_null(
-                $this->cart->where('subject_id' , $key->id)->where('subject_type' , get_class($key))->first()
+               collect( $this->cart['items'])->where('subject_id' , $key->id)->where('subject_type' , get_class($key))->first()
             );
         }
 
         return ! is_null(
-            $this->cart->firstWhere('id' , $key)
+            collect( $this->cart['items'])->firstWhere('id' , $key)
         );
     }
 
     public function get($key , $withRelationShip = true)
     {
+
         $item = $key instanceof Model
-            ? $this->cart->where('subject_id' , $key->id)->where('subject_type' , get_class($key))->first()
-            : $this->cart->firstWhere('id' , $key);
+            ?  collect( $this->cart['items'])->where('subject_id' , $key->id)->where('subject_type' , get_class($key))->first()
+            :  collect( $this->cart['items'])->firstWhere('id' , $key);
 
         return $withRelationShip ? $this->withRelationshipIfExist($item) : $item;
     }
@@ -100,7 +108,7 @@ class CartService
     public function delete($key)
     {
         if( $this->has($key) ) {
-            $this->cart = $this->cart->filter(function ($item) use ($key) {
+            $this->cart['items'] =  collect( $this->cart['items'])->filter(function ($item) use ($key) {
                 if($key instanceof Model) {
                     return ( $item['subject_id'] != $key->id ) && ( $item['subject_type'] != get_class($key) );
                 }
@@ -109,7 +117,8 @@ class CartService
             });
 
 //            session()->put($this->name , $this->cart);
-            Cookie::queue($this->name , $this->cart->toJson() , 60 * 24 * 7 );
+//            Cookie::queue($this->name , $this->cart->toJson() , 60 * 24 * 7 );
+            $this->storeCookie();
 
             return true;
         }
@@ -120,15 +129,20 @@ class CartService
     public function all()
     {
         $cart = $this->cart;
-        $cart = $cart->map(function($item) {
-            return $this->withRelationshipIfExist($item);
+        $cart =  collect( $this->cart['items'])->map(function($item) use ($cart){
+            $item = $this->withRelationshipIfExist($item);
+            $item = $this->checkDiscountValidate($item , $cart['discount']);
+            return $item;
         });
 
         return $cart;
     }
     public function flush()
     {
-        $this->cart = collect([]);
+        $this->cart = collect([
+            'items' => [],
+            'discount' => null
+        ]);
         $this->storeCookie();
 
         return $this;
@@ -155,7 +169,11 @@ class CartService
     public function instance(string $name = 'default')
     {
 //        $this->cart = session()->get($name) ?? collect([]);
-        $this->cart = collect(json_decode(request()->cookie($name) , true)) ?? collect([]);
+        $cart = collect(json_decode(request()->cookie($this->name) , true))?? collect([]);
+        $this->cart =$cart->count() ? $cart : collect([
+            'items' => [],
+            'discount' => null
+        ]);
         $this->name = $name;
         return $this;
     }
@@ -163,5 +181,39 @@ class CartService
     protected function storeCookie(): void
     {
         Cookie::queue($this->name, $this->cart->toJson(), 60 * 24 * 7);
+    }
+
+    public function addDiscount($discount)
+    {
+        $this->cart['discount'] = $discount;
+        $this->storeCookie();
+    }
+
+    public function getDiscount()
+    {
+        return Discount::where('code', $this->cart['discount'])->first();
+    }
+
+    private function checkDiscountValidate($item, $discount)
+    {
+        $discount = Discount::where('code',$discount)->first();
+        if ($discount && $discount->expired_at > now()){
+
+            if (
+
+                (! $discount->products->count() && ! $discount->categories->count()) ||
+                (in_array($item['product']->id , $discount->products->pluck('id')->toArray() )) ||
+                (array_intersect($item['product']->caategories->pluck('id')->toArray() , $discount->categories->pluck('id')->toArray()))
+
+            ) {
+                $item['discount_percent'] = $discount->percent /100;
+
+
+
+
+            }
+
+        }
+        return $item;
     }
 }
