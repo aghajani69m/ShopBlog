@@ -40,6 +40,8 @@ Route::post('/auth/token' ,[AuthTokenController::class,'postToken']);
 Route::middleware('auth')->group(function() {
     Route::prefix('profile')->namespace('Profile')->group(function () {
         Route::get('/', [IndexController::class, 'index'])->name('profile');
+        Route::get('/upload', [IndexController::class, 'uploadImage'])->name('profile.upload.image');
+        Route::post('/upload', [IndexController::class, 'uploadImagePost'])->name('profile.upload.image');
         Route::get('twofactor', [TwoFactorAuthController::class, 'manageTwoFactor'])->name('profile.2fa.manage');
         Route::post('twofactor', [TwoFactorAuthController::class, 'postManageTwoFactor']);
 

@@ -25,43 +25,43 @@
 <!-- Automatic element centering -->
 <div class="lockscreen-wrapper">
     <div class="lockscreen-logo">
-        <a href="#"><b>تایید پرداخت</b></a> <br>
+        <a href="#"><b>آپلود عکس</b></a> <br>
     </div>
 @include('admin.layouts.errors')
 <!-- User name -->
-{{--    <div class="lockscreen-name">{{ auth()->user()->name }}</div>--}}
+    <div class="lockscreen-name">{{$user->name }}</div>
 
 
-<!-- START LOCK SCREEN ITEM -->
+    <!-- START LOCK SCREEN ITEM -->
     <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
-            <img src="{{isset(auth()->user()->image) ? auth()->user()->image : "/dist/img/avatar5.png"}}" alt="User Image">
+            <img src="{{!is_null(auth()->user()->image) ? auth()->user()->image : "/dist/img/avatar5.png"}}" alt="User Image">
         </div>
         <!-- /.lockscreen-image -->
 
         <!-- lockscreen credentials (contains the form) -->
-        <form class="lockscreen-credentials" action="{{ route('payment.confirm') }}" method = "POST">
+        <form class="lockscreen-credentials" action="{{ route('profile.upload.image') }}" method = "POST" enctype="multipart/form-data">
             @csrf
 
             <div class="input-group">
-                <select name="confirm" class="form-control">
-                    <option value="true"> بله </option>
-                    <option value="false"> خیر</option>
-                </select>
+                <input name="image" type="file" class="form-control" >
+
                 <div class="input-group-append">
-                    <button type="submit" class="btn"><i class="fa fa-arrow-left text-muted"></i></button>
+                    <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
                 </div>
             </div>
-
         </form>
         <!-- /.lockscreen credentials -->
 
     </div>
     <!-- /.lockscreen-item -->
     <div class="help-block text-center">
-آیا مایل به پرداخت هستید؟    </div>
-
+        عکس خود را انتخاب کنید
+    </div>
+    {{--    <div class="text-center">--}}
+    {{--        <a href="login.html">و یا با یک یوزرنیم دیگر وارد شوید</a>--}}
+    {{--    </div>--}}
 
 </div>
 <!-- /.center -->
