@@ -152,4 +152,12 @@ class ProductController extends Controller
             $product->attributes()->attach($attr->id, ['value_id' => $attr_value->id]);
         });
     }
+
+    public function userShow()
+    {
+        $user = auth()->user();
+        $products = Product::where('user_id',$user->id)->latest()->paginate(20);
+        return view('admin.products.user',compact('products'));
+
+    }
 }

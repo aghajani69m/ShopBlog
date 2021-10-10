@@ -208,9 +208,6 @@ class CartService
             ) {
                 $item['discount_percent'] = $discount->percent /100;
 
-
-
-
             }
 
         }

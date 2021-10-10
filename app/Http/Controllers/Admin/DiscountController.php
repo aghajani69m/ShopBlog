@@ -136,4 +136,5 @@ class DiscountController extends Controller
         $discount->delete();
         return back();
     }
+
 }

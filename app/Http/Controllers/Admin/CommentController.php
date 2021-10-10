@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Comment;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CommentController extends Controller
@@ -11,6 +12,7 @@ class CommentController extends Controller
     public function __construct()
     {
         $this->middleware('can:show-comments')->only(['index']);
+        $this->middleware('can:show-user-comments')->only(['userShow']);
         $this->middleware('can:edit-comment')->only(['update']);
         $this->middleware('can:delete-comment')->only(['destroy']);
     }
@@ -31,6 +33,13 @@ class CommentController extends Controller
 
         $comments = Comment::whereApproved(1)->latest()->paginate(20);
         return view('admin.comments.all' , compact('comments'));
+    }
+
+    public function userShow()
+    {
+        $user = auth()->user();
+        $comments = Comment::where('user_id', $user->id)->latest()->paginate(20);
+        return view('admin.comments.user' , compact('comments'));
     }
 
     public function unapproved()
