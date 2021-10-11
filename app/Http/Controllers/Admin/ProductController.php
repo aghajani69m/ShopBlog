@@ -80,7 +80,11 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        return view('admin.products.edit' , compact('product'));
+        if ( $this->authorize(['view']) || $this->middleware('can:edit-product')) {
+
+            return view('admin.products.edit', compact('product'));
+        }
+        return back();
     }
 
     /**
@@ -92,29 +96,33 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        $validData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
-            'price' => 'required',
-            'inventory' => 'required',
-            'image' => 'required',
-            'categories' => 'required',
-            'attributes' => 'array'
-        ]);
+        if ( $this->authorize(['update']) || $this->middleware('can:edit-product')) {
+
+            $validData = $request->validate([
+                'title' => 'required',
+                'description' => 'required',
+                'price' => 'required',
+                'inventory' => 'required',
+                'image' => 'required',
+                'categories' => 'required',
+                'attributes' => 'array'
+            ]);
 
 //        Storage::disk('public')->putFileAs('files' , $request->file('file') , $request->file('file')->getClientOriginalName());
 
-        $product->update($validData);
-        $product->categories()->sync($validData['categories']);
+            $product->update($validData);
+            $product->categories()->sync($validData['categories']);
 
-        $product->attributes()->detach();
+            $product->attributes()->detach();
 
-        if(isset($validData['attributes']))
-            $this->attachAttributesToProduct($product, $validData);
+            if (isset($validData['attributes']))
+                $this->attachAttributesToProduct($product, $validData);
 
 
-        alert()->success('محصول مورد نظر با موفقیت ویرایش شد' , 'با تشکر');
-        return redirect(route('admin.products.index'));
+            alert()->success('محصول مورد نظر با موفقیت ویرایش شد', 'با تشکر');
+            return redirect(route('admin.products.index'));
+        }
+        return back();
     }
 
     /**
@@ -125,10 +133,13 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-        $product->delete();
+       if ( $this->authorize(['destroy']) || $this->middleware('can:delete-product')) {
+           $product->delete();
 
-        alert()->success('محصول مورد نظر با موفقیت حذف شد' , 'با تشکر');
-        return back();
+           alert()->success('محصول مورد نظر با موفقیت حذف شد', 'با تشکر');
+           return back();
+       }
+       return back();
     }
 
     /**
@@ -155,6 +166,7 @@ class ProductController extends Controller
 
     public function userShow()
     {
+        $this->authorize(['view']);
         $user = auth()->user();
         $products = Product::where('user_id',$user->id)->latest()->paginate(20);
         return view('admin.products.user',compact('products'));

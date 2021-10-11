@@ -75,7 +75,7 @@
                         </ul>
                     </li>
                     @endcanany
-                    @canany(['show-comments','edit-comment'])
+                    @can('show-comments-list')
                         <li class="nav-item has-treeview {{ isActive(['admin.comments.index' , 'admin.comments.unapproved','admin.comments.userShow' ] , 'menu-open') }}">
                             <a href="#" class="nav-link {{ isActive(['admin.comments.index' , 'admin.comments.unapproved','admin.comments.userShow' ] ) }}">
                                 <i class="nav-icon fa fa-users"></i>
@@ -85,6 +85,7 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @can('edit-comment')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.comments.index') }}" class="nav-link {{ isActive('admin.comments.index') }}">
                                             <i class="fa fa-circle-o nav-icon"></i>
@@ -97,6 +98,7 @@
                                             <p>نظرات رد شده</p>
                                         </a>
                                     </li>
+                                @endcan
                                 @can('show-user-comments')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.comments.userShow') }}" class="nav-link {{ isActive('admin.comments.userShow') }}">
@@ -108,7 +110,7 @@
                             </ul>
                         </li>
 
-                    @endcanany
+                    @endcan
                     @can('show-categories')
                         <li class="nav-item has-treeview {{ isActive('admin.categories.index' , 'menu-open') }}">
                             <a href="#" class="nav-link {{ isActive('admin.categories.index') }}">
@@ -129,7 +131,7 @@
                             </ul>
                         </li>
                     @endcan
-                    @can('show-products')
+                    @can('show-products-list')
                         <li class="nav-item has-treeview {{ isActive(['admin.products.index','admin.products.userShow'] , 'menu-open') }}">
                             <a href="#" class="nav-link {{ isActive(['admin.products.index','admin.products.userShow']) }}">
                                 <i class="nav-icon fa fa-users"></i>
@@ -139,12 +141,14 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
+                                @can('show-products')
                                 <li class="nav-item">
                                     <a href="{{ route('admin.products.index') }}" class="nav-link {{ isActive('admin.products.index') }}">
                                         <i class="fa fa-circle-o nav-icon"></i>
                                         <p>لیست محصولات</p>
                                     </a>
                                 </li>
+                                @endcan
                                 @can('show-user-products')
                                     <li class="nav-item">
                                         <a href="{{ route('admin.products.userShow') }}" class="nav-link {{ isActive('admin.products.userShow') }}">

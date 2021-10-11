@@ -124,7 +124,7 @@ class PaymentController extends Controller
                 ]);
 
 
-                alert()->success('پرداخت شما موفق نبود');
+                alert()->error('پرداخت شما موفق نبود');
                 $cart = Cart::instance();
 
                 $cart->flush();

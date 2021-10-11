@@ -14,7 +14,8 @@ use App\Http\Controllers\Admin\User\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('admin.index');
+    $user = auth()->user();
+    return view('admin.index',compact('user'));
 });
 Route::resource('users',UserController::class);
 Route::get('/users/{user}/permissions',[PerController::class,'create'])->name('users.permissions')->middleware('can:staff-user-permissions');

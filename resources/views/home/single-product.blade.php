@@ -87,15 +87,17 @@
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <div class="card">
-                    <div class="card-header d-flex justify-content-between">
+                    <div class="card-outline d-flex justify-content-between">
 
-                        {{ $product->title }}
-{{--                   @if(\App\Helpers\Cart\Cart::count($product) < $product->inventory)--}}
+                        <h3>{{ $product->title }}</h3>
+                   @if(\App\Helpers\Cart\Cart::count($product) < $product->inventory)
                         <form action="{{ route('cart.add' , $product->id) }}" method="POST" id="add-to-cart">
                             @csrf
                         </form>
                         <span onclick="document.getElementById('add-to-cart').submit()" class="btn btn-sm btn-danger">اضافه کردن به سبد خرید</span>
-{{--                   @endif--}}
+                        @else
+                       <h3 class="btn btn-warning">اتمام موجودی</h3>
+                   @endif
                     </div>
 
                     <div class="card-body">
@@ -126,7 +128,7 @@
                     <div class="alert alert-warning">برای ثبت نظر لطفا وارد سایت شوید.</div>
                 @endguest
 
-                @include('layouts.comments' , ['comments' => $product->comments()->where('parent_id' , 0)->get()])
+                @include('layouts.comments' , ['comments' => $product->comments()->where('approved' , 1)->where('parent_id',0)->get()])
             </div>
         </div>
     </div>

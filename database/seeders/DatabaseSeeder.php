@@ -38,12 +38,15 @@ class DatabaseSeeder extends Seeder
         Permission::factory()->create(['name' => 'show-roles' , 'label' => 'مشاهده مقام ها']);
         Permission::factory()->create(['name' => 'create-role' , 'label' => 'ایجاد مقام']);
         Permission::factory()->create(['name' => 'edit-role' , 'label' => 'ویرایش مقام']);
+        Permission::factory()->create(['name' => 'delete-role' , 'label' => 'حذف مقام']);
         Permission::factory()->create(['name' => 'show-products' , 'label' => 'مشاهده محصولات']);
+        Permission::factory()->create(['name' => 'show-products-list' , 'label' => 'مشاهده لیست محصولات']);
         Permission::factory()->create(['name' => 'show-user-products' , 'label' => 'مشاهده محصولات کاربر']);
         Permission::factory()->create(['name' => 'create-product' , 'label' => 'ایجاد محصول']);
         Permission::factory()->create(['name' => 'edit-product' , 'label' => 'ویرایش محصول']);
         Permission::factory()->create(['name' => 'delete-product' , 'label' => 'حذف محصول']);
         Permission::factory()->create(['name' => 'show-comments' , 'label' => 'مشاهده نظرات']);
+        Permission::factory()->create(['name' => 'show-comments-list' , 'label' => 'مشاهده لیست نظرات']);
         Permission::factory()->create(['name' => 'show-user-comments' , 'label' => 'مشاهده نظرات کاربر']);
         Permission::factory()->create(['name' => 'edit-comment' , 'label' => 'ویرایش نظر']);
         Permission::factory()->create(['name' => 'delete-comment' , 'label' => 'حذف نظر']);
@@ -59,11 +62,8 @@ class DatabaseSeeder extends Seeder
         Permission::factory()->create(['name' => 'show-staff-users' , 'label' => 'مشاهده مدیران']);
         Permission::factory()->create(['name' => 'staff-user-permissions' , 'label' => 'مدیریت دسترسی مدیران']);
         Permission::factory()->create(['name' => 'show-orders' , 'label' => 'مشاهده سفارشات']);
-        Permission::factory()->create(['name' => 'show-user-orders' , 'label' => 'مشاهده سفارشات کاربر']);
         Permission::factory()->create(['name' => 'edit-order' , 'label' => 'ویرایش سفارش']);
-        Permission::factory()->create(['name' => 'edit-user-order' , 'label' => 'ویرایش سفارش کاربر']);
         Permission::factory()->create(['name' => 'delete-order' , 'label' => 'حذف سفارش']);
-        Permission::factory()->create(['name' => 'delete-user-order' , 'label' => 'حذف سفارش کاربر']);
 
 
         Product::factory(50)->create();
