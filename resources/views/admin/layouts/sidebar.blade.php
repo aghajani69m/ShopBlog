@@ -95,7 +95,7 @@
                                     <li class="nav-item">
                                         <a href="{{ route('admin.comments.unapproved') }}" class="nav-link {{ isActive('admin.comments.unapproved') }}">
                                             <i class="fa fa-circle-o nav-icon"></i>
-                                            <p>نظرات رد شده</p>
+                                            <p>نظرات تایید نشده</p>
                                         </a>
                                     </li>
                                 @endcan
