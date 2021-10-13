@@ -100,9 +100,29 @@
                    @endif
                     </div>
 
-                    <div class="card-body">
-                        <img src="{{$product->image}}" class="card-img-top " alt="...">
-                        <hr>
+                    <div class="photo-gallery">
+                        <div class="container">
+                            <div class="intro">
+                                <h2 class="text-center">{{ $product->title }}</h2>
+                            </div>
+                            <div class="row photos">
+                                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="{{$product->image}}" data-lightbox="photos"><img class="card-img-top" src="{{$product->image}}"></a></div>
+                                @foreach($product->gallery as $galery)
+                                <div class="col-sm-6 col-md-4 col-lg-3 item"><a href="{{$galery->image}}" data-lightbox="photos"><img class="card-img-top" src="{{$galery->image}}"></a></div>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+
+
+
+
+
+
+
+{{--                    <div class="card-body">--}}
+{{--                        <img src="{{$product->image}}" class="card-img-top " alt="...">--}}
+{{--                        <hr>--}}
 
                     @if( $product->categories)
                             @foreach( $product->categories as $cate)
@@ -118,9 +138,9 @@
         <div class="row">
             <div class="col">
                 <div class="d-flex align-items-center justify-content-between">
-                    <h4 class="mt-4">بخش نظرات</h4>
+                    <h4 class="mt-4 mr-5">بخش نظرات</h4>
                     @auth
-                        <span class="btn btn-sm btn-primary" data-toggle="modal" data-target="#sendComment" data-id="0">ثبت نظر جدید</span>
+                        <span class="btn btn-sm btn-primary ml-5" data-toggle="modal" data-target="#sendComment" data-id="0">ثبت نظر جدید</span>
                     @endauth
                 </div>
 
@@ -133,3 +153,4 @@
         </div>
     </div>
 @endsection
+

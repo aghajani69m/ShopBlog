@@ -46,7 +46,7 @@
                         <div class="form-group">
                             <label class="col-sm-2 control-label">کاربر مربوط به تخفیف (اختیاری)</label>
                             <select class="form-control" name="users[]" id="users" multiple>
-                                <option value="null">همه کاربرها</option>
+{{--                                <option value="null">همه کاربرها</option>--}}
                                 @foreach(\App\Models\User::all() as $user)
                                     <option value="{{ $user->id }}">{{ $user->name }} - {{ $user->email }}</option>
                                 @endforeach
@@ -55,7 +55,7 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">محصول مربوطه (اختیاری)</label>
                             <select class="form-control" name="products[]" id="products" multiple>
-                                <option value="null">همه محصول</option>
+{{--                                <option value="null">همه محصول</option>--}}
                                 @foreach(\App\Models\Product::all() as $product)
                                     <option value="{{ $product->id }}">{{ $product->title }}</option>
                                 @endforeach
@@ -64,7 +64,7 @@
                         <div class="form-group">
                             <label for="inputPassword3" class="col-sm-2 control-label">دسته‌بندی مربوطه (اختیاری)</label>
                             <select class="form-control" name="categories[]" id="categories" multiple>
-                                <option value="null">همه دسته‌ها</option>
+{{--                                <option value="null">همه دسته‌ها</option>--}}
                                 @foreach(\App\Models\Category::all() as $category)
                                     <option value="{{ $category->id }}">{{ $category->name }}</option>
                                 @endforeach

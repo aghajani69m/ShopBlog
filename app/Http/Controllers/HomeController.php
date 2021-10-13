@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\Cart\Cart;
+use App\Models\Discount;
 use Illuminate\Http\Request;
+use function PHPUnit\Framework\isNull;
 
 class HomeController extends Controller
 {
@@ -24,6 +27,26 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+
+    public function specials()
+    {
+        $cart = Cart::instance();
+        $discounts = Discount::all();
+//        dd($discounts);
+        foreach ($discounts as $discount) {
+
+            if ($discount->users()->count() == 0) ;
+            {
+            $products = $discount->products()->get();
+            $disco = $discount;
+            }
+        }
+        if(!isset($products))
+            $products = null;
+//            dd($products);
+
+        return view('specials',compact('products','cart'));
     }
 
     public function comment(Request $request)

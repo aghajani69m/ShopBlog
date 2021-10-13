@@ -36,4 +36,9 @@ class Product extends Model
     {
         return $this->hasMany(ProductGallery::class);
     }
+
+    public function discounts()
+    {
+        return $this->belongsToMany(Discount::class);
+    }
 }

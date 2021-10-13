@@ -73,11 +73,11 @@
                                         </div>
                                     </td>
                                     @if(! $cart['discount_percent'])
-                                        <td class="text-right font-weight-semibold align-middle p-4">{{ $product->price }} تومان</td>
+                                        <td class="text-right font-weight-semibold align-middle p-4">{{ number_format($product->price) }} تومان</td>
                                     @else
                                         <td class="text-right font-weight-semibold align-middle p-4">
                                         <del class = "text-danger text-sm">{{ $product->price }} </del>
-                                        <span>{{$product->price - ($product->price * $cart['discount_percent'])}}تومان</span>
+                                        <span>{{number_format($product->price - ($product->price * $cart['discount_percent']))}}تومان</span>
                                         </td>
                                     @endif
                                     <td class="align-middle p-4">
@@ -88,7 +88,7 @@
                                         </select>
                                     </td>
                                     @if(! $cart['discount_percent'])
-                                        <td class="text-right font-weight-semibold align-middle p-4">تومان {{ $product->price * $cart['quantity'] }}</td>
+                                        <td class="text-right font-weight-semibold align-middle p-4"> {{ number_format($product->price * $cart['quantity']) }} تومان </td>
                                     @else
                                         <td class="text-right font-weight-semibold align-middle p-4">
                                             <del class = "text-danger text-sm">{{ $product->price * $cart['quantity'] }} </del>
@@ -179,11 +179,11 @@
                             @endphp
                             <div class="text-large">
                                 @if($originalPrice != $totalPrice)
-                                    <del>{{$originalPrice}}تومان</del>
+                                    <del>{{number_format($originalPrice)}}تومان</del>
                                     <br>
 
                                 @endif
-                                <strong>{{ $totalPrice }} تومان</strong></div>
+                                <strong>{{ number_format($totalPrice) }} تومان</strong></div>
                         </div>
                     </div>
                 </div>

@@ -25,11 +25,14 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    $products = \App\Models\Product::latest()->paginate(9);
+    $cart = \App\Helpers\Cart\Cart::instance();
+    return view('welcome',compact('products','cart'));
 });
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
+Route::get('/specials', [App\Http\Controllers\HomeController::class, 'specials'])->middleware('verified')->name('specials');
 
 Route::get('/auth/google' ,[GoogleAuthController::class,'redirect'])->name('auth.google');
 Route::get('/auth/google/callback' ,[GoogleAuthController::class,'callback']);
