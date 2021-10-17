@@ -76,7 +76,7 @@
                                         <td class="text-right font-weight-semibold align-middle p-4">{{ number_format($product->price) }} تومان</td>
                                     @else
                                         <td class="text-right font-weight-semibold align-middle p-4">
-                                        <del class = "text-danger text-sm">{{ $product->price }} </del>
+                                        <del class = "text-danger text-sm">{{number_format( $product->price )}} </del>
                                         <span>{{number_format($product->price - ($product->price * $cart['discount_percent']))}}تومان</span>
                                         </td>
                                     @endif
@@ -91,8 +91,8 @@
                                         <td class="text-right font-weight-semibold align-middle p-4"> {{ number_format($product->price * $cart['quantity']) }} تومان </td>
                                     @else
                                         <td class="text-right font-weight-semibold align-middle p-4">
-                                            <del class = "text-danger text-sm">{{ $product->price * $cart['quantity'] }} </del>
-                                            <span>{{($product->price - ($product->price * $cart['discount_percent'])) * $cart['quantity'] }}تومان</span>
+                                            <del class = "text-danger text-sm">{{ number_format($product->price * $cart['quantity'] )}} </del>
+                                            <span>{{number_format(($product->price - ($product->price * $cart['discount_percent'])) * $cart['quantity'] )}}تومان</span>
                                         </td>
                                     @endif
                                     <td class="text-center align-middle px-0">

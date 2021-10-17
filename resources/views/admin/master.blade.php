@@ -39,7 +39,7 @@
 <div class="wrapper">
 
     <!-- Navbar -->
-@include('admin.layouts.navbar')
+{{--@include('admin.layouts.navbar')--}}
 <!-- /.navbar -->
 
     <!-- Main Sidebar Container -->
