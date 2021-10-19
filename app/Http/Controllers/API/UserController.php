@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
@@ -16,11 +17,13 @@ class UserController extends Controller
      */
     public function index()
     {
-        $users = User::all();
-        return response([
-            'message' => 'All Users',
-            'data' => $users
-        ]);
+        $users = User::paginate(20);
+        return UserResource::collection($users);
+//        $users = User::paginate(20);
+//        return response([
+//            'message' => 'All Users',
+//            'data' => $users
+//        ]);
     }
 
     /**
@@ -49,7 +52,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        return response($user);
+//        return response()->json($user)
+        return new UserResource($user);
     }
 
     /**

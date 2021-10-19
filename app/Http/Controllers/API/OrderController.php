@@ -15,7 +15,7 @@ class OrderController extends Controller
      */
     public function index()
     {
-        $order = Order::all();
+        $order = Order::paginate(20);
         return $order;
     }
 
