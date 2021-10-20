@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Helpers\Cart\Cart;
+use App\Models\Category;
 use App\Models\Discount;
 use Illuminate\Http\Request;
 use function PHPUnit\Framework\isNull;
@@ -16,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+//        $this->middleware('auth');
     }
 
     /**
@@ -27,6 +28,14 @@ class HomeController extends Controller
     public function index()
     {
         return view('home');
+    }
+    public function catPro(Category $category)
+    {
+        $cart = \App\Helpers\Cart\Cart::instance();
+        $products = $category->products;
+
+        return view('cat',compact('cart' , 'products','category'));
+
     }
 
     public function specials()

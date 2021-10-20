@@ -16,7 +16,7 @@ class ProductGalleryController extends Controller
      */
     public function index(Product $product)
     {
-        $images = $product->gallery()->latest()->paginate(30);
+        $images = $product->gallery()->latest()->paginate(10);
         return view('admin.products.gallery.all' , compact('product' , 'images'));
     }
 

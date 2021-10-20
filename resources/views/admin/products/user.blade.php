@@ -8,7 +8,7 @@
         <div class="col-12">
             <div class="card">
                 <div class="card-header">
-                    <h3 class="card-title">محصولات</h3>
+                    <h3 class="card-title">محصولات من</h3>
 
                     <div class="card-tools d-flex">
                         <form action="">
@@ -47,12 +47,12 @@
                                     <td>{{ $product->inventory }}</td>
                                     <td>{{ $product->view_count }}</td>
                                     <td class="d-flex">
-                                            <form action="{{ route('admin.products.destroy' , $product->id) }}" method="POST">
+                                            <form action="{{ route('products.destroy' , $product->id) }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
                                                 <button type="submit" class="btn btn-sm btn-danger ml-1">حذف</button>
                                             </form>
-                                        <a href="{{ route('admin.products.edit' , $product->id) }}" class="btn btn-sm btn-primary ml-1">ویرایش</a>
+                                        <a href="{{ route('products.edit' , $product->id) }}" class="btn btn-sm btn-primary ml-1">ویرایش</a>
 
                                         <a href="{{ route('admin.products.gallery.index' , ['product' => $product->id ]) }}" class="btn btn-sm btn-warning ml-1">گالری تصاویر</a>
                                     </td>

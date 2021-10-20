@@ -5,6 +5,7 @@ namespace App\Policies;
 use App\Models\Product;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Support\Facades\Gate;
 
 class ProductPolicy
 {
@@ -18,7 +19,7 @@ class ProductPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return true;
     }
 
     /**
@@ -30,7 +31,8 @@ class ProductPolicy
      */
     public function view(User $user, Product $product)
     {
-        return $user->id == $product->user->id;
+        return true;
+
     }
 
     /**
@@ -41,19 +43,20 @@ class ProductPolicy
      */
     public function create(User $user)
     {
-        //
+        return true;
+
     }
 
     /**
      * Determine whether the user can update the model.
      *
-     * @param  \App\Models\User  $user
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(User $user, Product $product)
     {
-        return $user->id == $product->user->id;
+
+        return $user->id == $product->user_id;
 
     }
 
@@ -66,7 +69,7 @@ class ProductPolicy
      */
     public function delete(User $user, Product $product)
     {
-        return $user->id == $product->user->id;
+        return $user->id == $product->user_id;
 
     }
 

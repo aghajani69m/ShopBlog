@@ -32,7 +32,8 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('verified')->name('home');
-Route::get('/specials', [App\Http\Controllers\HomeController::class, 'specials'])->middleware('verified')->name('specials');
+Route::get('/specials', [App\Http\Controllers\HomeController::class, 'specials'])->name('specials');
+Route::get('/categoriesproducts/{category}', [App\Http\Controllers\HomeController::class, 'catPro'])->name('product.category');
 
 Route::get('/auth/google' ,[GoogleAuthController::class,'redirect'])->name('auth.google');
 Route::get('/auth/google/callback' ,[GoogleAuthController::class,'callback']);
@@ -65,7 +66,10 @@ Route::middleware('auth')->group(function() {
 });
 
 Route::get('products' ,[ProductController::class,'index']);
-Route::get('products/{product}' ,[ProductController::class,'single']);
+Route::get('products/{product}' ,[ProductController::class,'singleView']);
+Route::get('products/{product}/edit' ,[ProductController::class,'edit'])->name('products.edit');
+Route::patch('products/{product}' ,[ProductController::class,'update'])->name('products.update');
+Route::delete('products/{product}' ,[ProductController::class,'delete'])->name('products.destroy');
 
 
 

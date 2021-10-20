@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Attribute;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -80,11 +79,9 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        if ( $this->authorize(['view']) || $this->middleware('can:edit-product')) {
 
             return view('admin.products.edit', compact('product'));
-        }
-        return back();
+
     }
 
     /**
@@ -96,7 +93,6 @@ class ProductController extends Controller
      */
     public function update(Request $request, Product $product)
     {
-        if ( $this->authorize(['update']) || $this->middleware('can:edit-product')) {
 
             $validData = $request->validate([
                 'title' => 'required',
@@ -121,8 +117,7 @@ class ProductController extends Controller
 
             alert()->success('محصول مورد نظر با موفقیت ویرایش شد', 'با تشکر');
             return redirect(route('admin.products.index'));
-        }
-        return back();
+
     }
 
     /**
@@ -133,13 +128,11 @@ class ProductController extends Controller
      */
     public function destroy(Product $product)
     {
-       if ( $this->authorize(['destroy']) || $this->middleware('can:delete-product')) {
            $product->delete();
 
            alert()->success('محصول مورد نظر با موفقیت حذف شد', 'با تشکر');
            return back();
-       }
-       return back();
+
     }
 
     /**
@@ -164,10 +157,9 @@ class ProductController extends Controller
         });
     }
 
-    public function userShow()
+    public function userShow(Request $request)
     {
-        $this->authorize(['view']);
-        $user = auth()->user();
+        $user = $request->user();
         $products = Product::where('user_id',$user->id)->latest()->paginate(20);
         return view('admin.products.user',compact('products'));
 

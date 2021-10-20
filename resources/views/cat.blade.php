@@ -1,10 +1,9 @@
 @extends('main')
 
 @section('content')
+
     <div class="center_content">
-        <div class="center_title_bar">
-            محصولات اخیر
-        </div>
+        <div class="center_title_bar">محصولات دسته بندی {{$category->name}}</div>
         @foreach($products as $product)
             <div class="prod_box">
                 <div class="center_prod_box">
@@ -30,9 +29,7 @@
                 </div>
             </div>
         @endforeach
-        <div>
-            {{$products->render()}}
-        </div>
-
+        {{--                            {{$products->render()}}--}}
     </div>
-      @endsection
+
+    @endsection

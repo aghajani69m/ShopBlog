@@ -22,9 +22,19 @@ class DatabaseSeeder extends Seeder
         // \App\Models\User::factory(10)->create();
         User::factory()->create([
             'name'=>'SuperAdmin' ,
-            'email'=>'aghajani69m@gmail.com' ,
+            'email'=>'superadmin@example.com' ,
             'password'=>'password' ,
             'is_superadmin'=>'1']);
+        User::factory()->create([
+            'name'=>'Admin' ,
+            'email'=>'admin@example.com' ,
+            'password'=>'password' ,
+            'is_admin'=>'1']);
+        User::factory()->create([
+            'name'=>'Staff' ,
+            'email'=>'staff@example.com' ,
+            'password'=>'password' ,
+            'is_staff'=>'1']);
         User::factory(20)->create();
         Permission::factory()->create(['name' => 'create-user' , 'label' => 'ایجاد کاربر']);
         Permission::factory()->create(['name' => 'show-users' , 'label' => 'مشاهده کاربران']);
