@@ -21,7 +21,8 @@
                     </div>
                     <div class="prod_price">
                         {{--                                        <span class="reduce">350$</span> --}}
-                        <span class="price">{{$product->price}}</span>
+                        <span class="price">{{ number_format($product->price)}} T
+                        </span>
                     </div>
                 </div>
                 <div class="bottom_prod_box"></div>

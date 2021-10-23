@@ -94,7 +94,7 @@
                         <form action="{{ route('cart.add' , $product->id) }}" method="POST" id="add-to-cart">
                             @csrf
                         </form>
-                        <span onclick="document.getElementById('add-to-cart').submit()" class="btn btn-sm btn-danger">اضافه کردن به سبد خرید</span>
+                        <span onclick="document.getElementById('add-to-cart').submit()" class="btn btn-sm btn-danger">اضافه کردن به سبد خرید({{number_format($product->price)}}T)</span>
                         @else
                        <h3 class="btn btn-warning">اتمام موجودی</h3>
                    @endif
@@ -128,7 +128,7 @@
                             @foreach( $product->categories as $cate)
                                 <a href="#">{{ $cate->name ."/"}}</a>
                             @endforeach
-                        @endif
+                    @endif
                         <hr>
                         {{ $product->description }}
                     </div>
