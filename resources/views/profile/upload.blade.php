@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,54 +22,56 @@
     <!-- template rtl version -->
     <link rel="stylesheet" href="../../dist/css/custom-style.css">
 </head>
+
 <body class="hold-transition lockscreen">
-<!-- Automatic element centering -->
-<div class="lockscreen-wrapper">
-    <div class="lockscreen-logo">
-        <a href="#"><b>آپلود عکس</b></a> <br>
-    </div>
-@include('admin.layouts.errors')
-<!-- User name -->
-    <div class="lockscreen-name">{{$user->name }}</div>
-
-
-    <!-- START LOCK SCREEN ITEM -->
-    <div class="lockscreen-item">
-        <!-- lockscreen image -->
-        <div class="lockscreen-image">
-            <img src="{{!is_null(auth()->user()->image) ? auth()->user()->image : "/dist/img/avatar5.png"}}" alt="User Image">
+    <!-- Automatic element centering -->
+    <div class="lockscreen-wrapper">
+        <div class="lockscreen-logo">
+            <a href="#"><b>آپلود عکس</b></a> <br>
         </div>
-        <!-- /.lockscreen-image -->
+        @include('admin.layouts.errors')
+        <!-- User name -->
+        <div class="lockscreen-name">{{$user->name }}</div>
 
-        <!-- lockscreen credentials (contains the form) -->
-        <form class="lockscreen-credentials" action="{{ route('profile.upload.image') }}" method = "POST" enctype="multipart/form-data">
-            @csrf
 
-            <div class="input-group">
-                <input name="image" type="file" class="form-control" >
-
-                <div class="input-group-append">
-                    <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
-                </div>
+        <!-- START LOCK SCREEN ITEM -->
+        <div class="lockscreen-item">
+            <!-- lockscreen image -->
+            <div class="lockscreen-image">
+                <img src="{{!is_null(auth()->user()->image) ? auth()->user()->image : "/dist/img/avatar5.png"}}" alt="User Image">
             </div>
-        </form>
-        <!-- /.lockscreen credentials -->
+            <!-- /.lockscreen-image -->
+
+            <!-- lockscreen credentials (contains the form) -->
+            <form class="lockscreen-credentials" action="{{ route('profile.upload.image') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="input-group">
+                    <input name="image" type="file" class="form-control">
+
+                    <div class="input-group-append">
+                        <button type="submit" class="btn"><i class="fa fa-arrow-right text-muted"></i></button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.lockscreen credentials -->
+
+        </div>
+        <!-- /.lockscreen-item -->
+        <div class="help-block text-center">
+            عکس خود را انتخاب کنید
+        </div>
+        {{-- <div class="text-center">--}}
+        {{-- <a href="login.html">و یا با یک یوزرنیم دیگر وارد شوید</a>--}}
+        {{-- </div>--}}
 
     </div>
-    <!-- /.lockscreen-item -->
-    <div class="help-block text-center">
-        عکس خود را انتخاب کنید
-    </div>
-    {{--    <div class="text-center">--}}
-    {{--        <a href="login.html">و یا با یک یوزرنیم دیگر وارد شوید</a>--}}
-    {{--    </div>--}}
+    <!-- /.center -->
 
-</div>
-<!-- /.center -->
-
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

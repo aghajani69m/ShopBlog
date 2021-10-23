@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -21,18 +22,20 @@
     <!-- template rtl version -->
     <link rel="stylesheet" href="../../dist/css/custom-style.css">
 </head>
+
 <body class="hold-transition lockscreen">
-<!-- Automatic element centering -->
-<div class="lockscreen-wrapper">
-    <div class="lockscreen-logo">
-        <a href="#"><b>تایید پرداخت</b></a> <br>
-    </div>
-@include('admin.layouts.errors')
-<!-- User name -->
-{{--    <div class="lockscreen-name">{{ auth()->user()->name }}</div>--}}
+    <!-- Automatic element centering -->
+    <div class="lockscreen-wrapper">
+        <div class="lockscreen-logo">
+            <a href="#"><b>تایید پرداخت</b></a> <br>
+        </div>
+        @include('admin.layouts.errors')
+        <!-- User name -->
+        {{-- <div class="lockscreen-name">{{ auth()->user()->name }}
+    </div>--}}
 
 
-<!-- START LOCK SCREEN ITEM -->
+    <!-- START LOCK SCREEN ITEM -->
     <div class="lockscreen-item">
         <!-- lockscreen image -->
         <div class="lockscreen-image">
@@ -41,7 +44,7 @@
         <!-- /.lockscreen-image -->
 
         <!-- lockscreen credentials (contains the form) -->
-        <form class="lockscreen-credentials" action="{{ route('payment.confirm') }}" method = "POST">
+        <form class="lockscreen-credentials" action="{{ route('payment.confirm') }}" method="POST">
             @csrf
 
             <div class="input-group">
@@ -60,15 +63,16 @@
     </div>
     <!-- /.lockscreen-item -->
     <div class="help-block text-center">
-آیا مایل به پرداخت هستید؟    </div>
+        آیا مایل به پرداخت هستید؟ </div>
 
 
-</div>
-<!-- /.center -->
+    </div>
+    <!-- /.center -->
 
-<!-- jQuery -->
-<script src="../../plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="../../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>

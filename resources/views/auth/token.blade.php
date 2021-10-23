@@ -1,42 +1,43 @@
 {{--@extends('layouts.app')--}}
 
 {{--@section('content')--}}
-{{--    <div class="container">--}}
-{{--        <div class="row justify-content-center">--}}
-{{--            <div class="col-md-8">--}}
-{{--                <div class="card">--}}
-{{--                    <div class="card-header">--}}
-{{--                        Two Factor Auth--}}
-{{--                    </div>--}}
-{{--                    <div class="card-header">--}}
-{{--                        <strong>Your Code is : {{$code}}</strong>--}}
-{{--                    </div>--}}
+{{-- <div class="container">--}}
+{{-- <div class="row justify-content-center">--}}
+{{-- <div class="col-md-8">--}}
+{{-- <div class="card">--}}
+{{-- <div class="card-header">--}}
+{{-- Two Factor Auth--}}
+{{-- </div>--}}
+{{-- <div class="card-header">--}}
+{{-- <strong>Your Code is : {{$code}}</strong>--}}
+{{-- </div>--}}
 
-{{--                    <div class="card-body">--}}
-{{--                        <form action="{{ route('2fa.token') }}" method="POST">--}}
-{{--                            @csrf--}}
+{{-- <div class="card-body">--}}
+{{-- <form action="{{ route('2fa.token') }}" method="POST">--}}
+{{-- @csrf--}}
 
-{{--                            <div class="form-group">--}}
-{{--                                <label for="token" class="col-form-label">Token</label>--}}
-{{--                                <input type="text" class="form-control @error('token') is-invalid @enderror" name="token" placeholder="enter your token">--}}
-{{--                                @error('token')--}}
-{{--                                   <span class="invalid-feedback">--}}
-{{--                                       <strong>{{ $message }}</strong>--}}
-{{--                                   </span>--}}
-{{--                                @enderror--}}
-{{--                            </div>--}}
-{{--                            <div class="form-group">--}}
-{{--                                <button class="btn btn-primary">Validate token</button>--}}
-{{--                            </div>--}}
-{{--                        </form>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
-{{--    </div>--}}
+{{-- <div class="form-group">--}}
+{{-- <label for="token" class="col-form-label">Token</label>--}}
+{{-- <input type="text" class="form-control @error('token') is-invalid @enderror" name="token" placeholder="enter your token">--}}
+{{-- @error('token')--}}
+{{-- <span class="invalid-feedback">--}}
+{{-- <strong>{{ $message }}</strong>--}}
+{{-- </span>--}}
+{{-- @enderror--}}
+{{-- </div>--}}
+{{-- <div class="form-group">--}}
+{{-- <button class="btn btn-primary">Validate token</button>--}}
+{{-- </div>--}}
+{{-- </form>--}}
+{{-- </div>--}}
+{{-- </div>--}}
+{{-- </div>--}}
+{{-- </div>--}}
+{{-- </div>--}}
 {{--@endsection--}}
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -58,16 +59,18 @@
     <!-- template rtl version -->
     <link rel="stylesheet" href="/dist/css/custom-style.css">
 </head>
+
 <body class="hold-transition lockscreen">
-<!-- Automatic element centering -->
-<div class="lockscreen-wrapper">
-    <div class="lockscreen-logo">
-        <a href="#"><b>اهراز هویت دو مرحله ای</b></a> <br>
-        <h6><b>کد تایید : {{$code}}</b></h6>
-    </div>
-@include('admin.layouts.errors')
-<!-- User name -->
-{{--    <div class="lockscreen-name">{{ auth()->user()->name }}</div>--}}
+    <!-- Automatic element centering -->
+    <div class="lockscreen-wrapper">
+        <div class="lockscreen-logo">
+            <a href="#"><b>اهراز هویت دو مرحله ای</b></a> <br>
+            <h6><b>کد تایید : {{$code}}</b></h6>
+        </div>
+        @include('admin.layouts.errors')
+        <!-- User name -->
+        {{-- <div class="lockscreen-name">{{ auth()->user()->name }}
+    </div>--}}
 
 
     <!-- START LOCK SCREEN ITEM -->
@@ -79,7 +82,7 @@
         <!-- /.lockscreen-image -->
 
         <!-- lockscreen credentials (contains the form) -->
-        <form class="lockscreen-credentials" action="{{ route('2fa.token') }}" method = "POST">
+        <form class="lockscreen-credentials" action="{{ route('2fa.token') }}" method="POST">
             @csrf
 
             <div class="input-group">
@@ -97,16 +100,17 @@
     <div class="help-block text-center">
         رمز پیامک شده به شماره موبایل خود را وارد کنید
     </div>
-    {{--    <div class="text-center">--}}
-    {{--        <a href="login.html">و یا با یک یوزرنیم دیگر وارد شوید</a>--}}
-    {{--    </div>--}}
+    {{-- <div class="text-center">--}}
+    {{-- <a href="login.html">و یا با یک یوزرنیم دیگر وارد شوید</a>--}}
+    {{-- </div>--}}
 
-</div>
-<!-- /.center -->
+    </div>
+    <!-- /.center -->
 
-<!-- jQuery -->
-<script src="/plugins/jquery/jquery.min.js"></script>
-<!-- Bootstrap 4 -->
-<script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- jQuery -->
+    <script src="/plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="/bootstrap/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
