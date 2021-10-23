@@ -15,11 +15,7 @@
             <div class="product_img"><a href="/products/{{ $product->id }}"><img style=" width: 100px" src="{{$product->image}}" alt="" border="0" /></a></div>
             <div class="prod_price">
                 {{-- <span class="reduce">350$</span> --}}
-                <span class="price">
-
-                    {{$product->price}}
-
-                </span>
+                <span class="price">{{ number_format($product->price)}} T
             </div>
         </div>
         <div class="bottom_prod_box"></div>

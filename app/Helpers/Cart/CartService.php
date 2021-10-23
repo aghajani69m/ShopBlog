@@ -203,7 +203,7 @@ class CartService
 
                 (! $discount->products->count() && ! $discount->categories->count()) ||
                 (in_array($item['product']->id , $discount->products->pluck('id')->toArray() )) ||
-                (array_intersect($item['product']->caategories->pluck('id')->toArray() , $discount->categories->pluck('id')->toArray()))
+                (array_intersect($item['product']->categories->pluck('id')->toArray() , $discount->categories->pluck('id')->toArray()))
 
             ) {
                 $item['discount_percent'] = $discount->percent /100;
