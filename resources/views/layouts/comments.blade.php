@@ -6,9 +6,9 @@
             <span class="text-muted"> : {{ jdate($comment->created_at)->ago() }}</span>
         </div>
         @auth
-        @if($comment->parent_id == 0)
+      
         <span class="fa fa-reply" data-toggle="modal" data-target="#sendComment" data-id="{{ $comment->id }}">پاسخ</span>
-        @endif
+ 
         @endauth
     </div>
 

@@ -1,38 +1,31 @@
-@extends('main')
+@extends('layouts.app')
 
 @section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card card-header">
+                <h3>  محصولات دسته بندی {{$category->name}}</h3>
+            </div>
 
-<div class="center_content">
-    <div class="center_title_bar">محصولات دسته بندی {{$category->name}}</div>
-    @foreach($products as $product)
-    <div class="prod_box">
-        <div class="center_prod_box">
-            <!-- {{--                                    {{route('product.detail')}}--}} -->
-            <div class="product_title">
-                <a href="/products/{{ $product->id }}">
-                    {{$product->title}}
-                </a>
-            </div>
-            <div class="product_img">
-                <a href="/products/{{ $product->id }}">
-                    <img style=" width: 100px" src="{{$product->image}}" alt="" border="0" />
-                </a>
-            </div>
-            <div class="prod_price">
-                {{-- <span class="reduce">350$</span> --}}
-                <span class="price">{{number_format($product->price)}} T
-                </span>
-            </div>
-        </div>
-        <div class="bottom_prod_box"></div>
-        <div class="prod_details_tab">
-            <a href="/products/{{ $product->id }}" class="prod_details">جزییات</a>
-        </div>
-    </div>
-    @endforeach
-    <div class="center_footer_bar">
+            @foreach($products->chunk(4) as $row)
+            <div class="row">
+                @foreach($row as $product)
+                <div class="col-3">
+                    <div class="card card-group mb-2">
+                        <img src="{{$product->image}}" class="card-img-top" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $product->title }}</h5>
+                            <p class="card-text">{{ substr($product->description,0,50) . "..." }}</p>
 
+                            <a href="/products/{{ $product->id }}" class="btn btn-primary">جزئیات محصول</a>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+            </div>
+            @endforeach
+        </div>
     </div>
 </div>
-
 @endsection

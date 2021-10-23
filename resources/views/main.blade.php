@@ -58,7 +58,7 @@
             <div class="left_content">
                 <div class="title_box">دسته بندی ها</div>
                 <ul class="left_menu">
-                    @foreach(\App\Models\Category::all() as $category)
+                    @foreach(\App\Models\Category::where('parent' , 0)->get() as $category)
                     @if($loop->index % 2 == 0)
 
                     <li class="odd"><a href="{{route('product.category',$category)}}">{{$category->name}}</a></li>
