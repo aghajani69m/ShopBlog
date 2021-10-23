@@ -4,7 +4,7 @@
 <div class="center_content">
     <div class="center_title_bar">محصولات شگفت انگیز</div>
     @if($products == null)
-    <div> فعلا محصول شگفت انگیزی نداریم</div>
+    <div dir="rtl"> فعلا محصول شگفت انگیزی نداریم...</div>
     @else
     @foreach($products as $product)
     <div class="prod_box">
@@ -15,7 +15,11 @@
             <div class="product_img"><a href="/products/{{ $product->id }}"><img style=" width: 100px" src="{{$product->image}}" alt="" border="0" /></a></div>
             <div class="prod_price">
                 {{-- <span class="reduce">350$</span> --}}
-                <span class="price">{{$product->price}}</span>
+                <span class="price">
+
+                    {{$product->price}}
+
+                </span>
             </div>
         </div>
         <div class="bottom_prod_box"></div>

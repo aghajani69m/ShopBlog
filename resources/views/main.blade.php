@@ -29,33 +29,6 @@
 
 <body class="antialiased">
     <div id="main_container">
-        {{-- <div class="top_bar">--}}
-
-        {{-- <div class="top_search">--}}
-
-        {{-- <div class="search_text"><a href="#">Advanced Search</a></div>--}}
-        {{-- <input type="text" class="search_input" name="search"/>--}}
-        {{-- <input type="image" src="image/search.gif" class="search_bt"/>--}}
-        {{-- </div>--}}
-
-        {{-- </div>--}}
-        {{-- <div id="header">--}}
-        {{-- <div id="logo"> <a href="#"><img src="image/logo.png" alt="" border="0" width="237" height="140" /></a> </div>--}}
-        {{-- <div class="oferte_content">--}}
-        {{-- <div class="top_divider"><img src="image/header_divider.png" alt="" width="1" height="164" /></div>--}}
-        {{-- <div class="oferta">--}}
-        {{-- <div class="oferta_content"> <img src="image/laptop.png" width="94" height="92" alt="" border="0" class="oferta_img" />--}}
-        {{-- <div class="oferta_details">--}}
-        {{-- <div class="oferta_title">Samsung GX 2004 LM</div>--}}
-        {{-- <div class="oferta_text"> Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco </div>--}}
-        {{-- <a href="details.html" class="details">details</a> </div>--}}
-        {{-- </div>--}}
-        {{-- <div class="oferta_pagination"> <span class="current">1</span> <a href="#">2</a> <a href="#">3</a> <a href="#">4</a> <a href="#">5</a> </div>--}}
-        {{-- </div>--}}
-        {{-- <div class="top_divider"><img src="image/header_divider.png" alt="" width="1" height="164" /></div>--}}
-        {{-- </div>--}}
-        {{-- <!-- end of oferte_content-->--}}
-        {{-- </div>--}}
         <div id="main_content">
             <div id="menu_tab">
                 <div class="left_menu_corner"></div>
@@ -124,33 +97,11 @@
                     </div>
                     <div class="cart_icon"><a href="/cart" title="header=[Checkout] body=[&nbsp;] fade=[on]"><img src="image/shoppingcart.png" alt="" width="48" height="48" border="0" /></a></div>
                 </div>
-                {{-- <div class="title_box">What�s new</div>--}}
-                {{-- <div class="border_box">--}}
-                {{-- <div class="product_title"><a href="details.html">Motorola 156 MX-VL</a></div>--}}
-                {{-- <div class="product_img"><a href="details.html"><img src="image/p2.gif" alt="" border="0" /></a></div>--}}
-                {{-- <div class="prod_price"><span class="reduce">350$</span> <span class="price">270$</span></div>--}}
-                {{-- </div>--}}
-                {{-- <div class="title_box">Manufacturers</div>--}}
-                {{-- <ul class="left_menu">--}}
-                {{-- <li class="odd"><a href="#">Sony</a></li>--}}
-                {{-- <li class="even"><a href="#">Samsung</a></li>--}}
-                {{-- <li class="odd"><a href="#">Daewoo</a></li>--}}
-                {{-- <li class="even"><a href="#">LG</a></li>--}}
-                {{-- <li class="odd"><a href="#">Fujitsu Siemens</a></li>--}}
-                {{-- <li class="even"><a href="#">Motorola</a></li>--}}
-                {{-- <li class="odd"><a href="#">Phillips</a></li>--}}
-                {{-- <li class="even"><a href="#">Beko</a></li>--}}
-                {{-- </ul>--}}
-                {{-- <div class="banner_adds"> <a href="#"><img src="image/bann1.jpg" alt="" border="0" /></a> </div>--}}
             </div>
             <!-- end of right content -->
         </div>
         <!-- end of main content -->
         <div class="footer">
-            {{-- <div class="left_footer"> <img src="image/footer_logo.png" alt="" width="170" height="49"/> </div>--}}
-            {{-- <div class="center_footer"> Template name. All Rights Reserved 2021<br />--}}
-            {{-- <a href="http://csscreme.com"><img src="image/csscreme.jpg" alt="csscreme" border="0" /></a><br />--}}
-            {{-- <img src="image/payment.gif" alt="" /> </div>--}}
             <div class="right_footer"><a href="/home">home</a> <a href="/about">about</a> <a href="/sitemap">sitemap</a> <a href="#">rss</a> <a href="/contact">contact us</a></div>
         </div>
     </div>

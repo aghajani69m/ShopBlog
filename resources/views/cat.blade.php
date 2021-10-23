@@ -30,7 +30,9 @@
         </div>
     </div>
     @endforeach
-    {{-- {{$products->render()}}--}}
+    <div class="center_footer_bar">
+
+    </div>
 </div>
 
 @endsection

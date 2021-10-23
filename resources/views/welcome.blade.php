@@ -2,9 +2,13 @@
 
 @section('content')
 <div class="center_content">
+
     <div class="center_title_bar">
         محصولات اخیر
+    
     </div>
+  
+
     @foreach($products as $product)
     <div class="prod_box">
         <div class="center_prod_box">
@@ -31,9 +35,10 @@
         </div>
     </div>
     @endforeach
-    <div>
-        {{$products->render()}}
+    <div class="center_footer_bar">
+    {{$products->links()}}    
     </div>
-
 </div>
+
+
 @endsection
