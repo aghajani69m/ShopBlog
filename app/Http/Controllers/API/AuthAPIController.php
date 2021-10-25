@@ -15,7 +15,8 @@ class AuthAPIController extends Controller
      *
      * @return void
      */
-    public function __construct() {
+    public function __construct()
+    {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
 
@@ -24,7 +25,8 @@ class AuthAPIController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function login(Request $request){
+    public function login(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'email' => 'required|email',
             'password' => 'required|string|min:6',
@@ -34,7 +36,7 @@ class AuthAPIController extends Controller
             return response()->json($validator->errors(), 422);
         }
 
-        if (! $token = auth('api')->attempt($validator->validated())) {
+        if (!$token = auth('api')->attempt($validator->validated())) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
@@ -46,14 +48,15 @@ class AuthAPIController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function register(Request $request) {
+    public function register(Request $request)
+    {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
         ]);
 
-        if($validator->fails()){
+        if ($validator->fails()) {
             return response()->json($validator->errors()->toJson(), 400);
         }
 
@@ -74,7 +77,8 @@ class AuthAPIController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function logout() {
+    public function logout()
+    {
         auth()->logout();
 
         return response()->json(['message' => 'User successfully signed out']);
@@ -85,7 +89,8 @@ class AuthAPIController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function refresh() {
+    public function refresh()
+    {
         return $this->createNewToken(auth('api')->refresh());
     }
 
@@ -94,8 +99,15 @@ class AuthAPIController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function me() {
-        return response()->json(auth('api')->user());
+    public function me()
+    {
+        $user = auth('api')->user();
+        return response()->json([
+            'name' => $user->name,
+            'email' => $user->email,
+            'phone' => $user->phone_number,
+            'created_at' => jdate($user->created_at)->format('Y-m-d'),
+        ]);
     }
 
     /**
@@ -105,11 +117,10 @@ class AuthAPIController extends Controller
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    protected function createNewToken($token){
+    protected function createNewToken($token)
+    {
         return response()->json([
             'access_token' => $token,
-//            'token_type' => 'bearer',
-//            'expires_in' => auth('api')->factory()->getTTL() * 60,
             'user' => new UserResource(auth('api')->user())
         ]);
     }

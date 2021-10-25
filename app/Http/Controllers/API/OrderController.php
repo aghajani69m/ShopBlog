@@ -16,7 +16,7 @@ class OrderController extends Controller
     public function index()
     {
         $order = Order::paginate(20);
-        return $order;
+        return response()->json($order);
     }
 
     /**

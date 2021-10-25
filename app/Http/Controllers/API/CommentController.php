@@ -16,7 +16,7 @@ class CommentController extends Controller
     public function index()
     {
         $comments = Comment::paginate(20);
-        return $comments;
+        return response()->json($comments);
     }
 
     /**
