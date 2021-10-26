@@ -113,20 +113,21 @@
                         </div>
                     </div>
                 </div>
-
-
-
-
-
-
-
-                {{-- <div class="card-body">--}}
-                {{-- <img src="{{$product->image}}" class="card-img-top " alt="...">--}}
-                {{-- <hr>--}}
-
                 @if( $product->categories)
+                <span class="text-muted">دسته بندی ها</span>
                 @foreach( $product->categories as $cate)
-                <a href="#">{{ $cate->name ."/"}}</a>
+                <div>
+                    <span href="#">{{ $cate->name ." . "}}</span>
+                </div>
+                @endforeach
+                @endif
+                <br>
+                @if( $product->attributes)
+                <span class="text-muted">ویژگی ها</span>
+                @foreach( $product->attributes->all() as $attr)
+                <div>
+                    <span href="#">{{ $attr->name .":". $attr->pivot->value->value}}</span>
+                </div>
                 @endforeach
                 @endif
                 <hr>

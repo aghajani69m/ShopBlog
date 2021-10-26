@@ -62,10 +62,7 @@
                     @foreach(\App\Models\Category::where('parent' , 0)->get() as $category)
                     <li class="odd"><a href="{{route('product.category',$category)}}">{{$category->name}}</a></li>
                     @if($category->child->count())
-                    @php
-                    $childs = $category->child;
-                    @endphp
-                    @foreach($childs as $child)
+                    @foreach($category->child as $child)
                     <li class="even"><a href="{{route('product.category',$child)}}">{{$child->name}}</a></li>
                     @endforeach
                     @endif

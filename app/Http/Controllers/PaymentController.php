@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Helpers\Cart\Cart;
 use App\Models\Payment;
+use App\Models\Product;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -88,9 +89,14 @@ class PaymentController extends Controller
                     'status' => 'paid'
                 ]);
 
-
                 alert()->success('پرداخت شما موفق بود');
                 $cart = Cart::instance();
+
+                foreach($cart->all()->toArray() as $item)
+                $product = $item['product'];
+                $product->update([
+                    'inventory' => $product->inventory - $item['quantity'],
+                ]);
 
                 $cart->flush();
 

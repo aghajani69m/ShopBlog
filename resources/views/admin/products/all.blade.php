@@ -43,7 +43,8 @@
                         @foreach($products as $product)
                         <tr>
                             <td>{{ $product->id }}</td>
-                            <td>{{ $product->title }}</td>
+                            <td> <a href="/products/{{ $product->id }}">
+                                    {{ $product->title }}</a></td>
                             <td>{{ $product->inventory }}</td>
                             <td>{{ $product->view_count }}</td>
                             <td class="d-flex">
