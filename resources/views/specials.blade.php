@@ -6,7 +6,8 @@
     @if($products == null)
     <div dir="rtl"> فعلا محصول شگفت انگیزی نداریم...</div>
     @else
-    @foreach($products as $product)
+    @foreach($products as $pro)
+    @foreach($pro as $product)
     <div class="prod_box">
         <div class="top_prod_box"></div>
         <div class="center_prod_box">
@@ -23,6 +24,7 @@
             <a href="/products/{{ $product->id }}" class="prod_details">جزییات</a>
         </div>
     </div>
+    @endforeach
     @endforeach
     @endif
     {{-- {{$products->render()}}--}}

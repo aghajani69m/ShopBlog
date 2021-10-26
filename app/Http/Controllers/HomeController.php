@@ -17,7 +17,7 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-//        $this->middleware('auth');
+        //        $this->middleware('auth');
     }
 
     /**
@@ -34,37 +34,47 @@ class HomeController extends Controller
         $cart = \App\Helpers\Cart\Cart::instance();
         $products = $category->products;
 
-        return view('cat',compact('cart' , 'products','category'));
-
+        return view('cat', compact('cart', 'products', 'category'));
     }
 
     public function specials()
     {
+        $auth_user = auth()->check() ? auth()->user() : null;
         $cart = Cart::instance();
         $discounts = Discount::all();
-//        dd($discounts);
+        //        dd($discounts);
         foreach ($discounts as $discount) {
+            if (!is_null($auth_user) && $discount->users()->count() > 0) 
 
-            if ($discount->users()->count() == 0) ;
-            {
-            $products = $discount->products()->get();
-            $disco = $discount;
+            $users = $discount->users;
+            foreach ($users as $user)
+
+                if ($user->id == $auth_user->id) {
+
+                    $products[] = $discount->products()->get();
+                    // $disco = $discount;
+                }
+
+            if ($discount->users()->count() == 0 ) {
+                
+                $products[] = $discount->products()->get();
+                // $disco = $discount;
             }
         }
-        if(!isset($products))
+        if (!isset($products))
             $products = null;
-//            dd($products);
+        //            dd($products);
 
-        return view('specials',compact('products','cart'));
+        return view('specials', compact('products', 'cart'));
     }
 
     public function comment(Request $request)
     {
 
-//        if(! $request->ajax()) {
-//            return response()->json([
-//                'status' => 'just ajax request'
-//            ]);
+        //        if(! $request->ajax()) {
+        //            return response()->json([
+        //                'status' => 'just ajax request'
+        //            ]);
         $validData = $request->validate([
             'commentable_id' => 'required',
             'commentable_type' => 'required',
@@ -73,10 +83,10 @@ class HomeController extends Controller
         ]);
 
         auth()->user()->comments()->create($validData);
-//
-//        return response()->json([
-//           'status' => 'success'
-//        ]);
+        //
+        //        return response()->json([
+        //           'status' => 'success'
+        //        ]);
         alert()->success('نظر با موفقیت ثبت شد');
         return back();
     }
